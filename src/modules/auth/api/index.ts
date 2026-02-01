@@ -1,4 +1,4 @@
-import { authApiClient } from "@/lib/api/auth-client";
+import { apiClient } from "@/lib/api/client";
 import type {
   LoginInput,
   LoginResponse,
@@ -6,35 +6,36 @@ import type {
   RegisterInput,
   RegisterResponse,
 } from "../types";
-import {
-  loginResponseSchema,
-  meResponseSchema,
-  registerResponseSchema,
-} from "../types";
-import { setStoredToken } from "../helpers";
+import { setAuthToken } from "@/utils";
 
-export async function registerApi(
+export async function register(
   input: RegisterInput
 ): Promise<RegisterResponse> {
-  const { data } = await authApiClient.post<RegisterResponse>(
+  const { data } = await apiClient.post<RegisterResponse>(
     "/register",
     input
   );
-  registerResponseSchema.parse(data);
   return data;
 }
 
-export async function loginApi(input: LoginInput): Promise<LoginResponse> {
-  const { data } = await authApiClient.post<LoginResponse>("/login", input);
-  loginResponseSchema.parse(data);
+/**
+ * Log in a user
+ * @param input - The login input
+ * @returns The login response
+ */
+export async function logIn(input: LoginInput): Promise<LoginResponse> {
+  const { data } = await apiClient.post<LoginResponse>("/login", input);
   if (data.data.token) {
-    setStoredToken(data.data.token);
+    setAuthToken(data.data.token);
   }
   return data;
 }
 
-export async function meApi(): Promise<MeResponse> {
-  const { data } = await authApiClient.get<MeResponse>("/me");
-  meResponseSchema.parse(data);
+/**
+ * Get the current user
+ * @returns The current user
+ */
+export async function getCurrentUser(): Promise<MeResponse> {
+  const { data } = await apiClient.get<MeResponse>("/me");
   return data;
 }

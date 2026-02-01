@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Lock, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { validateSchema } from "@/lib/schema";
 import { InputWithIcon } from "./InputWithIcon";
 import { useLogin } from "../hooks";
-import { loginInputSchema, type LoginInput } from "../types";
-import { getApiErrorMessage } from "../helpers";
+import { loginInputSchema } from "../schema";
+import type { LoginInput } from "../types";
+import { getApiErrorMessage } from "@/utils";
 
 type FieldErrors = Partial<Record<keyof LoginInput, string>>;
 
@@ -22,21 +24,9 @@ export function LoginForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = loginInputSchema.safeParse({ email, password });
+    const result = validateSchema(loginInputSchema, { email, password });
     if (!result.success) {
-      const fieldErrors: FieldErrors = {};
-      const flattened = result.error.flatten().fieldErrors;
-      if (flattened) {
-        (
-          Object.entries(flattened) as [
-            keyof LoginInput,
-            string[] | undefined
-          ][]
-        ).forEach(([k, v]) => {
-          fieldErrors[k] = v?.[0];
-        });
-      }
-      setErrors(fieldErrors);
+      setErrors(result.fieldErrors as FieldErrors);
       return;
     }
     setErrors({});

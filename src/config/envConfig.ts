@@ -1,0 +1,25 @@
+import Joi from 'joi';
+
+const envSchema = Joi.object({
+  VITE_API_ROOT: Joi.string().uri().required(),
+  VITE_ENVIRONMENT: Joi.string().valid('development', 'staging', 'production').optional()
+}).unknown();
+
+const envVars = {
+  VITE_API_ROOT: import.meta.env.VITE_API_ROOT,
+  VITE_ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT
+};
+
+// Validate the environment variables against the schema
+const { error, value: validatedEnv } = envSchema.validate(envVars);
+
+if (error) {
+  throw new Error(`Config validation error: ${error.message}`);
+}
+
+export const envConfig = {
+  api: {
+    url: validatedEnv.VITE_API_ROOT
+  },
+  environment: validatedEnv.VITE_ENVIRONMENT
+};

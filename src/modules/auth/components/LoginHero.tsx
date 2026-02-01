@@ -1,26 +1,5 @@
-import { BarChart3, Droplets, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const FEATURES = [
-  {
-    icon: BarChart3,
-    text: "Real-time Analytics",
-    iconClassName: "text-amber-300",
-    bgClassName: "bg-amber-400/25",
-  },
-  {
-    icon: Droplets,
-    text: "Track Water & Calories",
-    iconClassName: "text-sky-200",
-    bgClassName: "bg-sky-400/25",
-  },
-  {
-    icon: TrendingUp,
-    text: "Growth Insights",
-    iconClassName: "text-emerald-300",
-    bgClassName: "bg-emerald-400/25",
-  },
-] as const;
+import { LOGIN_HERO_FEATURES } from "../constants";
 
 type LoginHeroProps = { className?: string };
 
@@ -44,7 +23,7 @@ export function LoginHero({ className }: LoginHeroProps) {
           </p>
         </div>
         <ul className="flex flex-wrap gap-4 sm:gap-6">
-          {FEATURES.map(({ icon: Icon, text, iconClassName, bgClassName }) => (
+          {LOGIN_HERO_FEATURES.map(({ icon: Icon, text, iconClassName, bgClassName }) => (
             <li
               key={text}
               className="flex items-center gap-3 rounded-xl bg-white/15 px-4 py-3 backdrop-blur-sm"

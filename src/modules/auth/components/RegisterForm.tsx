@@ -3,9 +3,11 @@ import { Lock, Mail, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { validateSchema } from "@/lib/schema";
 import { InputWithIcon } from "./InputWithIcon";
 import { useRegister } from "../hooks";
-import { registerInputSchema, type RegisterInput } from "../types";
+import { registerInputSchema } from "../schema";
+import type { RegisterInput } from "../types";
 import { getApiErrorMessage } from "../helpers";
 import { NAVIGATION_PATHS } from "@/constants";
 
@@ -26,18 +28,9 @@ export function RegisterForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = registerInputSchema.safeParse({ name, email, password });
+    const result = validateSchema(registerInputSchema, { name, email, password });
     if (!result.success) {
-      const fieldErrors: FieldErrors = {};
-      const flattened = result.error.flatten().fieldErrors;
-      if (flattened) {
-        (Object.entries(flattened) as [keyof RegisterInput, string[] | undefined][]).forEach(
-          ([k, v]) => {
-            fieldErrors[k] = v?.[0];
-          }
-        );
-      }
-      setErrors(fieldErrors);
+      setErrors(result.fieldErrors as FieldErrors);
       return;
     }
     setErrors({});

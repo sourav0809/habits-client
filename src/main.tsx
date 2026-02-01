@@ -13,5 +13,5 @@ createRoot(document.getElementById("root")!).render(
       <RouterProvider router={AppRouter} />
       <Toaster position="top-right" richColors />
     </QueryClientProvider>
-  </StrictMode>,
+  </StrictMode>
 );

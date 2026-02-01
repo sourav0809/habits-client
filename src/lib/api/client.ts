@@ -1,8 +1,9 @@
+import { envConfig } from "@/config/envConfig";
 import axios, { type AxiosInstance } from "axios";
+import { LOCAL_STORAGE_KEYS } from "@/constants";
 
-export const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
+const API_BASE_URL = envConfig.api.url;
 
-// Create axios instance with base URL
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
@@ -11,24 +12,18 @@ export const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// Request interceptor (optional - for adding auth tokens, etc.)
 apiClient.interceptors.request.use(
   (config) => {
-    // Add any request modifications here if needed
+    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor (optional - for error handling, etc.)
 apiClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    // Handle errors globally if needed
-    return Promise.reject(error);
-  }
+  (response) => response,
+  (error) => Promise.reject(error)
 );
