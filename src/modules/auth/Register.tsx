@@ -21,16 +21,16 @@ const Register = () => {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <LoginHero className="hidden lg:flex" />
-      <div className="flex flex-col justify-center px-6 py-10 sm:py-12 sm:px-8 lg:px-12">
-        <div className="mx-auto w-full max-w-sm space-y-6 text-center lg:space-y-8 lg:text-left">
+      <div className="flex flex-col justify-start px-4 py-8 sm:px-6 sm:py-10 md:justify-center md:px-8 md:py-12 lg:items-start lg:px-10 lg:py-16 xl:px-16">
+        <div className="w-full max-w-full text-left sm:max-w-md md:max-w-lg md:space-y-6 lg:max-w-xl lg:space-y-8">
           <MobileAuthHeader />
-          <div className="space-y-4">
+          <div className="mt-6 space-y-5 md:mt-8 md:space-y-6">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
               Create an account
             </h2>
             <RegisterForm />
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="mt-6 text-left text-sm text-muted-foreground md:mt-8">
             Already have an account?{" "}
             <Link
               to={NAVIGATION_PATHS.LOGIN}
