@@ -3,7 +3,9 @@ export const NAVIGATION_PATHS: Record<string, string> = {
   LOGIN: "/login",
   REGISTER: "/register",
   DASHBOARD: "/dashboard",
+  FOOD_LOG: "/food-log",
+  WATER_LOG: "/water-log",
+  GOALS: "/goals",
   PROFILE: "/profile",
-  RECIPE_DETAILS: "/recipe/:id",
   ERROR: "*",
 };
