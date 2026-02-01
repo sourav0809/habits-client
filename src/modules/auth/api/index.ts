@@ -1,4 +1,4 @@
-import { apiClient } from "@/lib/api/client";
+import { api } from "@/lib/api/client";
 import type {
   LoginInput,
   LoginResponse,
@@ -6,16 +6,15 @@ import type {
   RegisterInput,
   RegisterResponse,
 } from "../types";
-import { setAuthToken } from "@/utils";
 
 export async function register(
   input: RegisterInput
 ): Promise<RegisterResponse> {
-  const { data } = await apiClient.post<RegisterResponse>(
-    "/register",
+  return await api.post<RegisterResponse>(
+    "v1/auth/register",
     input
   );
-  return data;
+
 }
 
 /**
@@ -24,11 +23,7 @@ export async function register(
  * @returns The login response
  */
 export async function logIn(input: LoginInput): Promise<LoginResponse> {
-  const { data } = await apiClient.post<LoginResponse>("/login", input);
-  if (data.data.token) {
-    setAuthToken(data.data.token);
-  }
-  return data;
+  return await api.post<LoginResponse>("v1/auth/login", input);
 }
 
 /**
@@ -36,6 +31,5 @@ export async function logIn(input: LoginInput): Promise<LoginResponse> {
  * @returns The current user
  */
 export async function getCurrentUser(): Promise<MeResponse> {
-  const { data } = await apiClient.get<MeResponse>("/me");
-  return data;
+  return await api.get<MeResponse>("v1/auth/me");
 }
