@@ -6,4 +6,7 @@ export const QUERY_KEYS = {
     ["recipes", "category", category] as const,
   defaultRecipes: ["recipes", "default"] as const,
   recipeDetails: (id: string) => ["recipes", "details", id] as const,
+  auth: {
+    me: ["auth", "me"] as const,
+  },
 };
