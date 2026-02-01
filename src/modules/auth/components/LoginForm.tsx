@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Lock, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NAVIGATION_PATHS } from "@/constants";
 import { Label } from "@/components/ui/label";
 import { validateSchema } from "@/lib/schema";
 import { InputWithIcon } from "./InputWithIcon";
@@ -8,10 +10,12 @@ import { useLogin } from "../hooks";
 import { loginInputSchema } from "../schema";
 import type { LoginInput } from "../types";
 import { getApiErrorMessage } from "@/utils";
+import { toast } from "sonner";
 
 type FieldErrors = Partial<Record<keyof LoginInput, string>>;
 
 export function LoginForm() {
+  const navigate = useNavigate();
   const login = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,15 +26,20 @@ export function LoginForm() {
       ? getApiErrorMessage(login.error)
       : null;
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = validateSchema(loginInputSchema, { email, password });
-    if (!result.success) {
-      setErrors(result.fieldErrors as FieldErrors);
-      return;
+  const onSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      const result = validateSchema(loginInputSchema, { email, password });
+      if (!result.success) {
+        setErrors(result.fieldErrors as FieldErrors);
+        return;
+      }
+      setErrors({});
+      await login.mutateAsync(result.data);
+      navigate(NAVIGATION_PATHS.DASHBOARD, { replace: true });
+    } catch (error) {
+      toast.error(getApiErrorMessage(error));
     }
-    setErrors({});
-    login.mutate(result.data);
   };
 
   return (

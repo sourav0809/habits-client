@@ -1,10 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginHero } from "./components/LoginHero";
 import { NAVIGATION_PATHS } from "@/constants";
 import { MobileAuthHeader } from "./components/MobileAuthHeader";
 import { LoginForm } from "./components/LoginForm";
+import { useMe } from "./hooks";
+import { PageLoader } from "@/components/PageLoader";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { data, isLoading, isFetching } = useMe();
+
+  if (isLoading || isFetching) {
+    return <PageLoader />;
+  }
+
+  if (data?.user) {
+    navigate(NAVIGATION_PATHS.DASHBOARD);
+  }
+
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <LoginHero className="hidden lg:flex" />

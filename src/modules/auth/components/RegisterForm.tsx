@@ -8,8 +8,9 @@ import { InputWithIcon } from "./InputWithIcon";
 import { useRegister } from "../hooks";
 import { registerInputSchema } from "../schema";
 import type { RegisterInput } from "../types";
-import { getApiErrorMessage } from "../helpers";
+import { getApiErrorMessage } from "@/utils";
 import { NAVIGATION_PATHS } from "@/constants";
+import { toast } from "sonner";
 
 type FieldErrors = Partial<Record<keyof RegisterInput, string>>;
 
@@ -26,19 +27,24 @@ export function RegisterForm() {
       ? getApiErrorMessage(register.error)
       : null;
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = validateSchema(registerInputSchema, { name, email, password });
-    if (!result.success) {
-      setErrors(result.fieldErrors as FieldErrors);
-      return;
+  const onSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      const result = validateSchema(registerInputSchema, {
+        name,
+        email,
+        password,
+      });
+      if (!result.success) {
+        setErrors(result.fieldErrors as FieldErrors);
+        return;
+      }
+      setErrors({});
+      await register.mutateAsync(result.data);
+      navigate(NAVIGATION_PATHS.DASHBOARD, { replace: true });
+    } catch (error) {
+      toast.error(getApiErrorMessage(error));
     }
-    setErrors({});
-    register.mutate(result.data, {
-      onSuccess: () => {
-        navigate(NAVIGATION_PATHS.LOGIN, { replace: true });
-      },
-    });
   };
 
   return (

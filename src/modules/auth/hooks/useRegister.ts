@@ -1,15 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { register } from "../api";
-import type { RegisterInput } from "../types";
+import type { RegisterInput, RegisterResponse } from "../types";
 import { setAuthToken } from "@/utils";
 
 export function useRegister() {
-  return useMutation({
+  return useMutation<RegisterResponse, Error, RegisterInput>({
     mutationFn: (input: RegisterInput) => register(input),
     onSuccess: (data) => {
-      if (data?.data?.token) {
-        setAuthToken(data?.data?.token);
-      }
+      setAuthToken(data?.token);
     },
   });
 }
