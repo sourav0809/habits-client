@@ -8,7 +8,7 @@ import type {
   UpdateFoodResponse,
 } from "../types";
 
-const FOOD_BASE = "v1/food";
+const FOOD_BASE = "v1/user/food";
 
 /**
  * Get current user's foods
