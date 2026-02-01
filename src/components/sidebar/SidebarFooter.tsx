@@ -8,7 +8,10 @@ interface SidebarFooterProps {
   onNavigate: () => void;
 }
 
-export default function SidebarFooter({ isMobile, onNavigate }: SidebarFooterProps) {
+export default function SidebarFooter({
+  isMobile,
+  onNavigate,
+}: SidebarFooterProps) {
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
@@ -30,7 +33,7 @@ export default function SidebarFooter({ isMobile, onNavigate }: SidebarFooterPro
         className="flex cursor-pointer items-center rounded-xl p-3 text-muted-foreground transition-all hover:bg-red-50 hover:text-red-600"
         onClick={handleLogoutClick}
       >
-        <LogOut className="h-5 w-5 flex-shrink-0 text-red-500" />
+        <LogOut className="h-5 w-5 shrink-0 text-red-500" />
         <span className="ml-3">Logout</span>
       </div>
     </div>

@@ -9,4 +9,7 @@ export const QUERY_KEYS = {
   auth: {
     me: ["auth", "me"] as const,
   },
+  food: {
+    list: ["food", "list"] as const,
+  },
 };

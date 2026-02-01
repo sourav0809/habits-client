@@ -7,5 +7,6 @@ export const NAVIGATION_PATHS: Record<string, string> = {
   WATER_LOG: "/water-log",
   GOALS: "/goals",
   PROFILE: "/profile",
+  YOUR_MEALS: "/my-meals",
   ERROR: "*",
 };

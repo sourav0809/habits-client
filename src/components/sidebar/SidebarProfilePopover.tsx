@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User } from "lucide-react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { NAVIGATION_PATHS, LOCAL_STORAGE_KEYS } from "@/constants";
@@ -14,7 +18,9 @@ interface SidebarProfilePopoverProps {
   onNavigate: () => void;
 }
 
-export default function SidebarProfilePopover({ onNavigate }: SidebarProfilePopoverProps) {
+export default function SidebarProfilePopover({
+  onNavigate,
+}: SidebarProfilePopoverProps) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { data } = useMe();
@@ -53,7 +59,7 @@ export default function SidebarProfilePopover({ onNavigate }: SidebarProfilePopo
           )}
           aria-label="Profile menu"
         >
-          <User className="h-5 w-5 flex-shrink-0" />
+          <User className="h-5 w-5 shrink-0" />
           <span className="whitespace-nowrap font-medium opacity-0 transition-all duration-300 group-hover:translate-x-3 group-hover:opacity-100">
             Profile
           </span>
@@ -69,12 +75,18 @@ export default function SidebarProfilePopover({ onNavigate }: SidebarProfilePopo
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 shrink-0">
               <AvatarImage src={undefined} alt={displayName} />
-              <AvatarFallback className="bg-muted text-xs font-medium">{initials}</AvatarFallback>
+              <AvatarFallback className="bg-muted text-xs font-medium">
+                {initials}
+              </AvatarFallback>
             </Avatar>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-foreground">{displayName}</p>
+              <p className="truncate text-sm font-medium text-foreground">
+                {displayName}
+              </p>
               {displayEmail ? (
-                <p className="truncate text-xs text-muted-foreground">{displayEmail}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {displayEmail}
+                </p>
               ) : null}
             </div>
           </div>

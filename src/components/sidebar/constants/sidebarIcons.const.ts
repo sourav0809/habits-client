@@ -1,4 +1,4 @@
-import { Home, UtensilsCrossed, Droplets, Target, User } from "lucide-react";
+import { Home, UtensilsCrossed, Droplets, Target, User, Palette } from "lucide-react";
 
 export const SIDEBAR_ICONS = {
   Home,
@@ -6,6 +6,7 @@ export const SIDEBAR_ICONS = {
   Droplets,
   Target,
   User,
+  Palette,
 } as const;
 
 export type SidebarIconName = keyof typeof SIDEBAR_ICONS;
