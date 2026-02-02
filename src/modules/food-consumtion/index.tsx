@@ -1,5 +1,3 @@
-"use client";
-
 import { useMemo, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import {
@@ -23,12 +21,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -174,7 +167,9 @@ export default function FoodLogModule() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [entries, setEntries] = useState<FoodLogEntry[]>(MOCK_LOG_ENTRIES);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const [addEntryDate, setAddEntryDate] = useState<Date>(() => toDate(getTodayISO()));
+  const [addEntryDate, setAddEntryDate] = useState<Date>(() =>
+    toDate(getTodayISO())
+  );
   const [addDateCalendarOpen, setAddDateCalendarOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState<PredefinedFood | null>(null);
   const [quantityGrams, setQuantityGrams] = useState("");
@@ -251,7 +246,9 @@ export default function FoodLogModule() {
     dateRange?.from && dateRange?.to
       ? dateRange.from.getTime() === dateRange.to.getTime()
         ? formatDateLabel(toISO(dateRange.from))
-        : `${formatDateLabel(toISO(dateRange.from))} – ${formatDateLabel(toISO(dateRange.to))}`
+        : `${formatDateLabel(toISO(dateRange.from))} – ${formatDateLabel(
+            toISO(dateRange.to)
+          )}`
       : "Pick dates";
 
   return (
@@ -327,9 +324,7 @@ export default function FoodLogModule() {
           }}
         >
           <DialogTrigger asChild>
-            <Button
-              className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto"
-            >
+            <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">
               <Plus className="size-4" />
               Add food
             </Button>
@@ -439,19 +434,14 @@ export default function FoodLogModule() {
                 )}
             </div>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setAddDialogOpen(false)}
-              >
+              <Button variant="outline" onClick={() => setAddDialogOpen(false)}>
                 Cancel
               </Button>
               <Button
                 className="bg-blue-600 text-white hover:bg-blue-700"
                 onClick={handleAddEntry}
                 disabled={
-                  !selectedFood ||
-                  !quantityGrams ||
-                  Number(quantityGrams) <= 0
+                  !selectedFood || !quantityGrams || Number(quantityGrams) <= 0
                 }
               >
                 Add entry
@@ -592,7 +582,12 @@ export default function FoodLogModule() {
                       payload[0]?.payload?.label ?? ""
                     }
                   />
-                  <Bar dataKey="kcal" radius={[4, 4, 0, 0]} maxBarSize={48} fill="#3b82f6" />
+                  <Bar
+                    dataKey="kcal"
+                    radius={[4, 4, 0, 0]}
+                    maxBarSize={48}
+                    fill="#3b82f6"
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
