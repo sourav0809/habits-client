@@ -12,4 +12,9 @@ export const QUERY_KEYS = {
   food: {
     list: ["food", "list"] as const,
   },
+  foodConsumption: {
+    list: (startDate: string, endDate: string) =>
+      ["food", "consumption", startDate, endDate] as const,
+    detail: (id: string) => ["food", "consumption", "detail", id] as const,
+  },
 };

@@ -1,10 +1,8 @@
 import { AuthGuard } from "@/routes/guard/authGuard";
 import { NAVIGATION_PATHS } from "@/constants";
 import PrivateLayout from "@/layout/PrivateLayout";
-import FoodLog from "@/modules/food";
+import FoodLog from "@/modules/food-consumtion";
 import MyMeals from "@/modules/my-meals";
-
-
 
 const PrivateRoutes = [
   {
