@@ -62,3 +62,15 @@ export function getCurrentTimeString(): string {
   const now = new Date();
   return `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 }
+
+/** Get time string "HH:mm" from ISO date-time (local time) */
+export function getTimeStringFromISO(isoDateTime: string): string {
+  const d = new Date(isoDateTime);
+  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+
+/** Parse ISO date-time to Date (for date picker) */
+export function parseDateTimeToDate(isoDateTime: string): Date {
+  const d = new Date(isoDateTime);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}

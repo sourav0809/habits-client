@@ -6,6 +6,8 @@ export {
   getDatePartFromDateTime,
   buildDateAndTimeISO,
   getCurrentTimeString,
+  getTimeStringFromISO,
+  parseDateTimeToDate,
   toDate,
   toISO,
 } from "./date.utils";

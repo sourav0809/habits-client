@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import { addConsumptionInputSchema } from "../schema";
+import { addConsumptionInputSchema, updateConsumptionInputSchema } from "../schema";
 
 /** Populated userFoodId on GET list */
 export interface ConsumptionUserFood {
@@ -56,10 +56,15 @@ export interface AddFoodConsumptionResponse {
 /** Form input for add consumption */
 export type AddConsumptionInput = z.infer<typeof addConsumptionInputSchema>;
 
-/** PATCH update – request body */
+/** PATCH update – request body (at least one optional field) */
 export interface UpdateFoodConsumptionBody {
-  quantity: number;
+  quantity?: number;
+  dateAndTime?: string | null;
+  userFoodId?: string;
 }
+
+/** Form input for update consumption */
+export type UpdateConsumptionInput = z.infer<typeof updateConsumptionInputSchema>;
 
 /** PATCH update – extracted data shape */
 export interface UpdateFoodConsumptionResponse {
