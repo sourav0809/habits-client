@@ -53,8 +53,7 @@ export default function FoodConsumptionModule() {
         consumptions,
         dateFrom,
         dateTo,
-        formatDateLabel,
-        toISO
+        formatDateLabel
       ),
     [consumptions, dateFrom, dateTo]
   );

@@ -30,6 +30,8 @@ import {
   formatTableDate,
   toISO,
   buildDateAndTimeISO,
+  getCurrentDateAsDate,
+  getCurrentTimeString,
   getTimeStringFromISO,
   parseDateTimeToDate,
 } from "../utils";
@@ -54,12 +56,9 @@ function getInitialDateAndTime(c: FoodConsumption): {
 } {
   const iso = c.dateAndTime ?? c.date ?? "";
   if (!iso) {
-    const now = new Date();
     return {
-      date: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-      time: `${String(now.getHours()).padStart(2, "0")}:${String(
-        now.getMinutes()
-      ).padStart(2, "0")}`,
+      date: getCurrentDateAsDate(),
+      time: getCurrentTimeString(),
     };
   }
   return {

@@ -2,3 +2,4 @@ export * from "./app.const";
 export * from "./image.const";
 export * from "./navigation.const";
 export * from "./storageKeys.const";
+export * from "./time.const";

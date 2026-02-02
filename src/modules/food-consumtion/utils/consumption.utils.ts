@@ -1,3 +1,4 @@
+import { getDaysInRange } from "@/utils/time.utils";
 import type { FoodConsumption } from "../types";
 
 export interface ConsumptionStats {
@@ -34,19 +35,13 @@ export function getConsumptionChartData(
   consumptions: FoodConsumption[],
   dateFrom: string,
   dateTo: string,
-  formatDateLabel: (iso: string) => string,
-  toISO: (d: Date) => string
+  formatDateLabel: (iso: string) => string
 ): ChartDataPoint[] {
+  const days = getDaysInRange(dateFrom, dateTo);
   const byDay: Record<string, number> = {};
-  const start = new Date(dateFrom + "T12:00:00");
-  const end = new Date(dateTo + "T12:00:00");
-  const startTime = start.getTime();
-  const endTime = end.getTime();
-  const oneDay = 24 * 60 * 60 * 1000;
-  for (let t = startTime; t <= endTime; t += oneDay) {
-    const d = new Date(t);
-    byDay[toISO(d)] = 0;
-  }
+  days.forEach((d) => {
+    byDay[d] = 0;
+  });
   const getDatePart = (iso: string) => iso.slice(0, 10);
   consumptions.forEach((c) => {
     const dateTime = c.dateAndTime ?? (c as { date?: string }).date ?? "";

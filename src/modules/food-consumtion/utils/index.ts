@@ -1,3 +1,4 @@
+export { getCurrentDateAsDate } from "@/utils/time.utils";
 export {
   getTodayISO,
   formatDateLabel,
