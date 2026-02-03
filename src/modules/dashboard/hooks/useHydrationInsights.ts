@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/lib/query/keys";
 import { getHydrationInsights } from "../api";
-import { DASHBOARD_QUERY_KEYS } from "./queryKeys";
 
 /** Hook to fetch hydration insights */
 export function useHydrationInsights(
@@ -9,7 +9,7 @@ export function useHydrationInsights(
   options?: { enabled?: boolean }
 ) {
   return useQuery({
-    queryKey: DASHBOARD_QUERY_KEYS.hydrationInsights(startDate, endDate),
+    queryKey: QUERY_KEYS.dashboard.hydrationInsights(startDate, endDate),
     queryFn: () => getHydrationInsights({ startDate, endDate }),
     enabled: options?.enabled ?? true,
   });

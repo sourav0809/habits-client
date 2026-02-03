@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/lib/query/keys";
 import { getWaterOverTime } from "../api";
-import { DASHBOARD_QUERY_KEYS } from "./queryKeys";
 
 /** Hook to fetch water over time for chart */
 export function useWaterOverTime(
@@ -9,7 +9,7 @@ export function useWaterOverTime(
   options?: { enabled?: boolean }
 ) {
   return useQuery({
-    queryKey: DASHBOARD_QUERY_KEYS.waterOverTime(startDate, endDate),
+    queryKey: QUERY_KEYS.dashboard.waterOverTime(startDate, endDate),
     queryFn: () => getWaterOverTime({ startDate, endDate }),
     enabled: options?.enabled ?? true,
   });
