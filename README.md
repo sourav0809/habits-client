@@ -73,3 +73,50 @@ The app will be available at `http://localhost:5173`.
 - **Profile** – View and manage your profile and avatar
 - **Protected routes** – Auth and guest guards for secure navigation
 - **Responsive UI** – Layout and components built with shadcn/ui and Tailwind CSS
+
+---
+
+## 5. Assessment Requirement Mapping
+
+This project fulfills the Frontend Assessment requirements in the following way:
+
+### Authentication
+
+- Email/password login & signup implemented using JWT
+- Protected routes with auth guards (private and guest routes)
+
+### Dashboard
+
+- Food tracking with calorie calculation
+- Water intake logging (daily)
+- Daily summary for calories and water
+- Visual charts for quick insight (water over time, calories over time, goal progress)
+
+### Goals
+
+- User can set daily water and calorie goals
+- Progress shown visually on dashboard and goals page
+
+### UI/UX
+
+- Responsive design using Tailwind & shadcn/ui
+- Loading, error, and empty states handled
+- Clear visual hierarchy and feedback
+
+---
+
+## 6. Design & Implementation Notes
+
+### Food Dataset Assumption
+
+- The system starts with **no predefined foods by default**
+- Users create and manage their own food items (name, calories per gram, etc.)
+- This was a deliberate choice to give users flexibility and ownership of their meal data
+
+### Data Modeling Tradeoff
+
+Instead of a single `DailyLog` document (`userId`, `date`, `calories`, `waterMl`), food and water entries are stored as **separate collections** (`food_consumptions`, `water_consumptions`) and aggregated on read. This improves flexibility for analytics, trends, and editing individual entries while still supporting daily summaries efficiently.
+
+### Backend Scope
+
+While the assessment required a minimal backend, additional endpoints (analytics, trends, pagination, etc.) were implemented to demonstrate real-world frontend data consumption and dashboard design.
