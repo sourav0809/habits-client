@@ -5,7 +5,6 @@ import type {
   CaloriesOverTimeQuery,
   CaloriesOverTimeResponse,
 } from "../types";
-import { getTodayISO } from "../utils";
 
 /**
  * Fetches calories over time (stats + chart data) for the given date range.

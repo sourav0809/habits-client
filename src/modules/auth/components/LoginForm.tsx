@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lock, Mail } from "lucide-react";
+import { Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAVIGATION_PATHS } from "@/constants";
 import { Label } from "@/components/ui/label";
 import { validateSchema } from "@/lib/schema";
 import { InputWithIcon } from "./InputWithIcon";
+import { PasswordInput } from "./PasswordInput";
 import { useLogin } from "../hooks";
 import { loginInputSchema } from "../schema";
 import type { LoginInput } from "../types";
@@ -64,15 +65,13 @@ export function LoginForm() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="login-password">Password</Label>
-        <InputWithIcon
+        <PasswordInput
           id="login-password"
-          type="password"
           placeholder="Enter your password"
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           aria-invalid={!!errors.password}
-          icon={<Lock />}
         />
         {errors.password && (
           <p className="text-sm text-destructive" role="alert">
@@ -87,10 +86,17 @@ export function LoginForm() {
       )}
       <Button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700"
+        className="w-full bg-blue-600 hover:bg-blue-700 h-11 text-base font-medium"
         disabled={login.isPending}
       >
-        {login.isPending ? "Signing in…" : "Sign in"}
+        {login.isPending ? (
+          <span className="flex items-center justify-center gap-2">
+            <Loader2 className="size-4 animate-spin" />
+            Signing in...
+          </span>
+        ) : (
+          "Sign in"
+        )}
       </Button>
     </form>
   );

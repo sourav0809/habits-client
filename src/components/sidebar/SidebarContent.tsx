@@ -30,11 +30,7 @@ export default function SidebarContent({
             isMobile && "mb-7"
           )}
         >
-          <HabitTrackerLogo
-            className={!isMobile ? "h-10 w-10" : "h-8 w-8"}
-            showLabel
-            isMobile={isMobile}
-          />
+          <HabitTrackerLogo showLabel isMobile={isMobile} />
         </div>
 
         {/* Nav items */}

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Lock, Mail, User } from "lucide-react";
+import { Mail, User, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { validateSchema } from "@/lib/schema";
 import { InputWithIcon } from "./InputWithIcon";
+import { PasswordInput } from "./PasswordInput";
 import { useRegister } from "../hooks";
 import { registerInputSchema } from "../schema";
 import type { RegisterInput } from "../types";
@@ -87,15 +88,13 @@ export function RegisterForm() {
       </div>
       <div className="space-y-2.5">
         <Label htmlFor="register-password">Password</Label>
-        <InputWithIcon
+        <PasswordInput
           id="register-password"
-          type="password"
           placeholder="Enter your password"
           autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           aria-invalid={!!errors.password}
-          icon={<Lock />}
         />
         {errors.password && (
           <p className="text-sm text-destructive" role="alert">
@@ -110,10 +109,17 @@ export function RegisterForm() {
       )}
       <Button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700"
+        className="w-full bg-blue-600 hover:bg-blue-700 h-11 text-base font-medium"
         disabled={register.isPending}
       >
-        {register.isPending ? "Creating account…" : "Create account"}
+        {register.isPending ? (
+          <span className="flex items-center justify-center gap-2">
+            <Loader2 className="size-4 animate-spin" />
+            Creating account...
+          </span>
+        ) : (
+          "Create account"
+        )}
       </Button>
     </form>
   );

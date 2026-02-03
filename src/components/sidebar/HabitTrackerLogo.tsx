@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
+import { LOGO } from "@/constants/image.const";
 
-const APP_NAME = "Habit Tracker";
+const APP_NAME = "Habits";
 
 interface HabitTrackerLogoProps {
   className?: string;
@@ -22,23 +23,18 @@ export function HabitTrackerLogo({
       className={cn(
         "flex items-center gap-3",
         !isMobile && "flex-col",
-        isMobile && "flex-row"
+        isMobile && "flex-row",
+        className
       )}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={cn("shrink-0 text-foreground", className)}
-        aria-hidden
-      >
-        <path d="M9 11l3 3L22 4" />
-        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-      </svg>
+      <img
+        src={LOGO}
+        alt="Habit Tracker Logo"
+        className={cn(
+          "shrink-0 transition-[width,height] duration-300 ease-in-out",
+          isMobile ? "h-10 w-10" : "h-10 w-10 group-hover:h-20 group-hover:w-20"
+        )}
+      />
       {showLabel && (
         <span
           className={cn(
