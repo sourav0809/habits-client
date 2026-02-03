@@ -18,13 +18,13 @@ export interface DateRangeSectionProps {
   addButton: React.ReactNode;
 }
 
-export function DateRangeSection({
+const DateRangeSection = ({
   dateRange,
   onDateRangeChange,
   calendarOpen,
   onCalendarOpenChange,
   addButton,
-}: DateRangeSectionProps) {
+}: DateRangeSectionProps) => {
   const rangeLabel =
     dateRange?.from && dateRange?.to
       ? dateRange.from.getTime() === dateRange.to.getTime()
@@ -63,4 +63,6 @@ export function DateRangeSection({
       {addButton}
     </div>
   );
-}
+};
+
+export default DateRangeSection;

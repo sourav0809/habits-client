@@ -1,4 +1,4 @@
-export function FoodConsumptionHeader() {
+const FoodConsumptionHeader = () => {
   return (
     <div className="space-y-1">
       <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
@@ -10,4 +10,6 @@ export function FoodConsumptionHeader() {
       </p>
     </div>
   );
-}
+};
+
+export default FoodConsumptionHeader;

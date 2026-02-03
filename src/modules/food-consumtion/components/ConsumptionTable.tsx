@@ -18,14 +18,14 @@ import {
 import type { FoodConsumption } from "../types";
 import { formatDateTime, getConsumptionFoodName } from "../utils";
 import { useDeleteFoodConsumption } from "../hooks";
-import { EditConsumptionDialog } from "./EditConsumptionDialog";
+import EditConsumptionDialog from "./EditConsumptionDialog";
 import { DeleteConsumptionConfirmDialog } from "./DeleteConsumptionConfirmDialog";
 
 export interface ConsumptionTableProps {
   consumptions: FoodConsumption[];
 }
 
-export function ConsumptionTable({ consumptions }: ConsumptionTableProps) {
+const ConsumptionTable = ({ consumptions }: ConsumptionTableProps) => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedConsumption, setSelectedConsumption] =
@@ -189,4 +189,6 @@ export function ConsumptionTable({ consumptions }: ConsumptionTableProps) {
       />
     </>
   );
-}
+};
+
+export default ConsumptionTable;

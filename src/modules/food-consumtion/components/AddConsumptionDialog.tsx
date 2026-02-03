@@ -44,11 +44,11 @@ export interface AddConsumptionDialogProps {
   trigger?: React.ReactNode;
 }
 
-export function AddConsumptionDialog({
+const AddConsumptionDialog = ({
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
   trigger,
-}: AddConsumptionDialogProps) {
+}: AddConsumptionDialogProps) => {
   const todayISO = getTodayISO();
   const todayDate = toDate(todayISO);
 
@@ -305,4 +305,6 @@ export function AddConsumptionDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default AddConsumptionDialog;

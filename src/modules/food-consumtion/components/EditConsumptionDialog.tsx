@@ -67,11 +67,11 @@ function getInitialDateAndTime(c: FoodConsumption): {
   };
 }
 
-export function EditConsumptionDialog({
+const EditConsumptionDialog = ({
   consumption,
   open,
   onOpenChange,
-}: EditConsumptionDialogProps) {
+}: EditConsumptionDialogProps) => {
   const updateConsumption = useUpdateFoodConsumption({
     onSuccess: () => onOpenChange(false),
   });
@@ -111,7 +111,7 @@ export function EditConsumptionDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};
 
 interface EditConsumptionFormProps {
   consumption: FoodConsumption;
@@ -318,3 +318,5 @@ function EditConsumptionForm({
     </form>
   );
 }
+
+export default EditConsumptionDialog;

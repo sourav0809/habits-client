@@ -14,10 +14,9 @@ export interface CaloriesChartProps {
   data: ChartDataPoint[];
 }
 
-export function CaloriesChart({ data }: CaloriesChartProps) {
+const CaloriesChart = ({ data }: CaloriesChartProps) => {
   if (data.length === 0) return null;
 
-  /** For long date ranges, show fewer X labels to avoid overlap and layout issues */
   const xAxisInterval =
     data.length > 14 ? Math.max(0, Math.ceil((data.length - 1) / 7)) : 0;
 
@@ -83,4 +82,6 @@ export function CaloriesChart({ data }: CaloriesChartProps) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default CaloriesChart;

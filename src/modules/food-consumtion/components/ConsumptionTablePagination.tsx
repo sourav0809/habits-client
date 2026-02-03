@@ -30,11 +30,11 @@ function getPageNumbers(
   return pages;
 }
 
-export function ConsumptionTablePagination({
+const ConsumptionTablePagination = ({
   pagination,
   onPageChange,
   disabled = false,
-}: ConsumptionTablePaginationProps) {
+}: ConsumptionTablePaginationProps) => {
   if (!pagination || pagination.totalPages <= 0) return null;
 
   const { page, totalPages, totalEntries, limit } = pagination;
@@ -125,4 +125,6 @@ export function ConsumptionTablePagination({
       </div>
     </div>
   );
-}
+};
+
+export default ConsumptionTablePagination;

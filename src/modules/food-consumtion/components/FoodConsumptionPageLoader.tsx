@@ -10,7 +10,7 @@ function Skeleton({ className }: { className?: string }) {
   );
 }
 
-export function FoodConsumptionPageLoader() {
+const FoodConsumptionPageLoader = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -60,4 +60,6 @@ export function FoodConsumptionPageLoader() {
       </section>
     </div>
   );
-}
+};
+
+export default FoodConsumptionPageLoader;

@@ -3,18 +3,16 @@ import type { DateRange } from "react-day-picker";
 import { Flame, UtensilsCrossed, TrendingUp, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFoodConsumptionPageData } from "./hooks";
-import {
-  FoodConsumptionHeader,
-  StatCard,
-  DateRangeSection,
-  AddConsumptionDialog,
-  ConsumptionTable,
-  ConsumptionTablePagination,
-  CaloriesChart,
-  FoodConsumptionPageLoader,
-} from "./components";
+import FoodConsumptionHeader from "./components/FoodConsumptionHeader";
 import { getTodayISO, toDate, toISO } from "./utils";
 import { FOOD_CONSUMPTIONS_PAGE_LIMIT } from "./constants";
+import FoodConsumptionPageLoader from "./components/FoodConsumptionPageLoader";
+import { StatCard } from "./components/StatCard";
+import DateRangeSection from "./components/DateRangeSection";
+import AddConsumptionDialog from "./components/AddConsumptionDialog";
+import ConsumptionTablePagination from "./components/ConsumptionTablePagination";
+import ConsumptionTable from "./components/ConsumptionTable";
+import CaloriesChart from "./components/CaloriesChart";
 
 export default function FoodConsumptionModule() {
   const today = getTodayISO();
