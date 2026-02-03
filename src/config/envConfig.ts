@@ -9,7 +9,7 @@ const envSchema = Joi.object({
 const envVars = {
   VITE_API_ROOT: import.meta.env.VITE_API_ROOT,
   VITE_ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT,
-  VITE_GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID,
+  VITE_GOOGLE_AUTH_CLIENT_ID: import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID,
   VITE_GOOGLE_AUTH_CLIENT_SECRET: import.meta.env.VITE_GOOGLE_AUTH_CLIENT_SECRET,
 };
 
