@@ -9,6 +9,7 @@ const FoodLog = lazy(() => import("@/modules/food-consumtion"));
 const MyMeals = lazy(() => import("@/modules/my-meals"));
 const WaterLog = lazy(() => import("@/modules/water"));
 const Goals = lazy(() => import("@/modules/goals"));
+const Profile = lazy(() => import("@/modules/profile"));
 
 const withLoader = (
   Component: React.LazyExoticComponent<React.ComponentType>
@@ -30,6 +31,7 @@ const PrivateRoutes = [
           { path: NAVIGATION_PATHS.WATER_LOG, element: withLoader(WaterLog) },
           { path: NAVIGATION_PATHS.GOALS, element: withLoader(Goals) },
           { path: NAVIGATION_PATHS.YOUR_MEALS, element: withLoader(MyMeals) },
+          { path: NAVIGATION_PATHS.PROFILE, element: withLoader(Profile) },
         ],
       },
     ],

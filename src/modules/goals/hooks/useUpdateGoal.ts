@@ -4,7 +4,7 @@ import type {
   UpdateGoalBody,
   UpdateGoalResponse,
 } from "../types";
-import { GOAL_QUERY_KEY, TODAY_ACTIVITIES_QUERY_KEY } from "../constants";
+import { QUERY_KEYS } from "@/lib/query/keys";
 import { toast } from "sonner";
 
 export function useUpdateGoal(options?: {
@@ -15,8 +15,10 @@ export function useUpdateGoal(options?: {
   return useMutation<UpdateGoalResponse, Error, UpdateGoalBody>({
     mutationFn: updateGoal,
     onSuccess: (data) => {
-      queryClient.setQueryData(GOAL_QUERY_KEY, { goal: data.goal });
-      queryClient.invalidateQueries({ queryKey: TODAY_ACTIVITIES_QUERY_KEY });
+      queryClient.setQueryData(QUERY_KEYS.goals.goal, { goal: data.goal });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.goals.todayActivities,
+      });
       queryClient.invalidateQueries({
         predicate: (query) =>
           Array.isArray(query.queryKey) &&

@@ -4,7 +4,7 @@ import type {
   AnalyticsQueryParams,
   GoalAchievementTrendResponse,
 } from "../types";
-import { ANALYTICS_QUERY_KEYS } from "../constants";
+import { QUERY_KEYS } from "@/lib/query/keys";
 
 const DEFAULT_PARAMS: AnalyticsQueryParams = {
   range: "1m",
@@ -19,7 +19,7 @@ export function useGoalAchievementTrend(
   const unit = params?.unit ?? DEFAULT_PARAMS.unit ?? "day";
 
   return useQuery<GoalAchievementTrendResponse>({
-    queryKey: ANALYTICS_QUERY_KEYS.goalAchievementTrend(range, unit),
+    queryKey: QUERY_KEYS.goals.analytics.goalAchievementTrend(range, unit),
     queryFn: () => getGoalAchievementTrend({ range, unit }),
     enabled: options?.enabled ?? true,
   });

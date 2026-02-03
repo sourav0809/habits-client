@@ -4,7 +4,7 @@ import type {
   AnalyticsQueryParams,
   WaterProgressResponse,
 } from "../types";
-import { ANALYTICS_QUERY_KEYS } from "../constants";
+import { QUERY_KEYS } from "@/lib/query/keys";
 
 const DEFAULT_PARAMS: AnalyticsQueryParams = {
   range: "7d",
@@ -19,7 +19,7 @@ export function useWaterProgress(
   const unit = params?.unit ?? DEFAULT_PARAMS.unit ?? "day";
 
   return useQuery<WaterProgressResponse>({
-    queryKey: ANALYTICS_QUERY_KEYS.waterProgress(range, unit),
+    queryKey: QUERY_KEYS.goals.analytics.waterProgress(range, unit),
     queryFn: () => getWaterProgress({ range, unit }),
     enabled: options?.enabled ?? true,
   });

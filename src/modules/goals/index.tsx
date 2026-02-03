@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { Flame, Droplets, TrendingUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useGoalsPageData } from "./hooks";
-import {
-  GoalsHeader,
-  GoalsPageLoader,
-  StatCard,
-  GoalNotSetCard,
-  CurrentGoalsCard,
-  EditGoalsDialog,
-  GoalProgressChart,
-  GoalTrendChart,
-} from "./components";
+import { GoalsHeader } from "./components/GoalsHeader";
 import { formatMl } from "./utils";
+import GoalsPageLoader from "./components/GoalsPageLoader";
+import GoalsErrorState from "./components/GoalsErrorState";
+import GoalsNotSetView from "./components/GoalsNotSetView";
+import EditGoalsDialog from "./components/EditGoalsDialog";
+import StatCard from "./components/StatCard";
+import CurrentGoalsCard from "./components/CurrentGoalsCard";
+import GoalProgressChart from "./components/charts/GoalProgressChart";
+import GoalTrendChart from "./components/charts/GoalTrendChart";
 
-export default function GoalsModule() {
+const Goal = () => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const {
     goal,
@@ -36,33 +34,20 @@ export default function GoalsModule() {
 
   if (isError) {
     return (
-      <div className="space-y-6">
-        <GoalsHeader onEditGoals={() => setEditDialogOpen(true)} />
-        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
-          {error?.message ?? "Failed to load goals. Please try again."}
-        </div>
-      </div>
+      <GoalsErrorState
+        onEditGoals={() => setEditDialogOpen(true)}
+        error={error ?? null}
+      />
     );
   }
 
   if (goal === null) {
     return (
-      <div className="space-y-6">
-        <GoalsHeader onEditGoals={() => setEditDialogOpen(true)} />
-        <GoalNotSetCard
-          onSetGoal={() => setEditDialogOpen(true)}
-          setGoalButton={
-            <Button className="bg-blue-600 text-white hover:bg-blue-700">
-              Set goal
-            </Button>
-          }
-        />
-        <EditGoalsDialog
-          open={editDialogOpen}
-          onOpenChange={setEditDialogOpen}
-          goal={null}
-        />
-      </div>
+      <GoalsNotSetView
+        onEditGoals={() => setEditDialogOpen(true)}
+        editDialogOpen={editDialogOpen}
+        onEditDialogChange={setEditDialogOpen}
+      />
     );
   }
 
@@ -124,7 +109,7 @@ export default function GoalsModule() {
         />
       </div>
 
-      <GoalTrendChart goal={goal} goalAchievementTrend={goalAchievementTrend} />
+      <GoalTrendChart goalAchievementTrend={goalAchievementTrend} />
 
       <EditGoalsDialog
         open={editDialogOpen}
@@ -133,4 +118,6 @@ export default function GoalsModule() {
       />
     </div>
   );
-}
+};
+
+export default Goal;

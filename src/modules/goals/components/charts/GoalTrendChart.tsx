@@ -11,23 +11,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { formatChartLabel } from "@/utils/time.utils";
-import { getDummyMonthData } from "../../utils";
-import type { Goal } from "../../types";
 import type { GoalAchievementTrendResponse } from "../../types";
-import type { DailyGoalDummy } from "../../utils";
 
 const CHART_TITLE = "Goal Achievement Trend (Last 1 month)";
 
 export interface GoalTrendChartProps {
-  goal: Goal;
-  /** From analytics API; when provided, used instead of dummy data */
   goalAchievementTrend?: GoalAchievementTrendResponse | null;
 }
 
-export function GoalTrendChart({
-  goal,
-  goalAchievementTrend,
-}: GoalTrendChartProps) {
+const GoalTrendChart = ({ goalAchievementTrend }: GoalTrendChartProps) => {
   const chartData = useMemo(() => {
     if (goalAchievementTrend?.dataPoints?.length) {
       return goalAchievementTrend.dataPoints.map((d) => ({
@@ -36,20 +28,8 @@ export function GoalTrendChart({
         water: d.waterPercent,
       }));
     }
-    const data = getDummyMonthData({
-      dailyKcal: goal.targetCalories,
-      dailyWater: goal.targetWaterMl,
-    });
-    return data.map((d: DailyGoalDummy) => ({
-      label: formatChartLabel(d.dateObj),
-      kcal: d.kcalPercentage,
-      water: d.waterPercentage,
-    }));
-  }, [
-    goal.targetCalories,
-    goal.targetWaterMl,
-    goalAchievementTrend?.dataPoints,
-  ]);
+    return [];
+  }, [goalAchievementTrend]);
 
   return (
     <Card>
@@ -156,4 +136,6 @@ export function GoalTrendChart({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default GoalTrendChart;

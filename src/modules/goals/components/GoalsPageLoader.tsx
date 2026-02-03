@@ -10,7 +10,7 @@ function Skeleton({ className }: { className?: string }) {
   );
 }
 
-export function GoalsPageLoader() {
+const GoalsPageLoader = () => {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -57,4 +57,6 @@ export function GoalsPageLoader() {
       </section>
     </div>
   );
-}
+};
+
+export default GoalsPageLoader;

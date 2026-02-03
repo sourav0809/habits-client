@@ -11,7 +11,7 @@ export interface StatCardProps {
   className?: string;
 }
 
-export function StatCard({
+const StatCard = ({
   title,
   value,
   unit,
@@ -19,7 +19,7 @@ export function StatCard({
   iconBgClass,
   trend,
   className,
-}: StatCardProps) {
+}: StatCardProps) => {
   return (
     <Card
       className={cn(
@@ -60,4 +60,6 @@ export function StatCard({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default StatCard;

@@ -33,4 +33,16 @@ export const QUERY_KEYS = {
     hydrationInsights: (startDate: string, endDate: string) =>
       ["dashboard", "hydration-insights", startDate, endDate] as const,
   },
+  goals: {
+    goal: ["user", "goals"] as const,
+    todayActivities: ["user", "activities", "today"] as const,
+    analytics: {
+      caloriesProgress: (range: string, unit: string) =>
+        ["user", "analytics", "calories-progress", range, unit] as const,
+      waterProgress: (range: string, unit: string) =>
+        ["user", "analytics", "water-progress", range, unit] as const,
+      goalAchievementTrend: (range: string, unit: string) =>
+        ["user", "analytics", "goal-achievement-trend", range, unit] as const,
+    },
+  },
 };

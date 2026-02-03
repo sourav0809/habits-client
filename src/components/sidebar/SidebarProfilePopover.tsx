@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { LogOut, User } from "lucide-react";
+import { toast } from "sonner";
 
 import {
   Popover,
@@ -13,6 +15,7 @@ import { NAVIGATION_PATHS, LOCAL_STORAGE_KEYS } from "@/constants";
 import { useMe } from "@/modules/auth/hooks";
 import { cn } from "@/lib/utils";
 import { removeItemFromLocalStorage } from "@/utils";
+import { LogoutConfirmDialog } from "./LogoutConfirmDialog";
 
 interface SidebarProfilePopoverProps {
   onNavigate: () => void;
@@ -22,7 +25,9 @@ export default function SidebarProfilePopover({
   onNavigate,
 }: SidebarProfilePopoverProps) {
   const [open, setOpen] = useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data } = useMe();
   const user = data?.user;
 
@@ -41,11 +46,18 @@ export default function SidebarProfilePopover({
     onNavigate();
   };
 
-  const handleLogoutClick = () => {
+  const performLogout = () => {
+    queryClient.clear();
     removeItemFromLocalStorage(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
+    setLogoutDialogOpen(false);
     setOpen(false);
     onNavigate();
     navigate(NAVIGATION_PATHS.LOGIN, { replace: true });
+    toast.success("Logged out successfully");
+  };
+
+  const handleLogoutClick = () => {
+    setLogoutDialogOpen(true);
   };
 
   return (
@@ -110,6 +122,11 @@ export default function SidebarProfilePopover({
           <span>Logout</span>
         </button>
       </PopoverContent>
+      <LogoutConfirmDialog
+        open={logoutDialogOpen}
+        onOpenChange={setLogoutDialogOpen}
+        onConfirm={performLogout}
+      />
     </Popover>
   );
 }

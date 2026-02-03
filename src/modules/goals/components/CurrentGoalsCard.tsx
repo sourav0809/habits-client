@@ -13,11 +13,11 @@ export interface CurrentGoalsCardProps {
   todayWaterActual?: number;
 }
 
-export function CurrentGoalsCard({
+const CurrentGoalsCard = ({
   goal,
   todayKcalActual = 0,
   todayWaterActual = 0,
-}: CurrentGoalsCardProps) {
+}: CurrentGoalsCardProps) => {
   const kcalPercentage = goal.targetCalories
     ? Math.min(Math.round((todayKcalActual / goal.targetCalories) * 100), 100)
     : 0;
@@ -158,4 +158,6 @@ export function CurrentGoalsCard({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default CurrentGoalsCard;

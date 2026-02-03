@@ -54,10 +54,11 @@ export async function updateGoal(
   return api.patch<UpdateGoalResponse, UpdateGoalBody>(GOALS_BASE, body);
 }
 
-// ---------------------------------------------------------------------------
-// Analytics API
-// ---------------------------------------------------------------------------
-
+/**
+ * Get calories progress.
+ * GET /api/v1/user/analytics/calories-progress
+ * @returns CaloriesProgressResponse
+ */
 export async function getCaloriesProgress(
   params?: AnalyticsQueryParams
 ): Promise<CaloriesProgressResponse> {
@@ -67,6 +68,11 @@ export async function getCaloriesProgress(
   );
 }
 
+/**
+ * Get water progress.
+ * GET /api/v1/user/analytics/water-progress
+ * @returns WaterProgressResponse
+ */
 export async function getWaterProgress(
   params?: AnalyticsQueryParams
 ): Promise<WaterProgressResponse> {
@@ -76,6 +82,11 @@ export async function getWaterProgress(
   );
 }
 
+/**
+ * Get goal achievement trend.
+ * GET /api/v1/user/analytics/goal-achievement-trend
+ * @returns GoalAchievementTrendResponse
+ */
 export async function getGoalAchievementTrend(
   params?: AnalyticsQueryParams
 ): Promise<GoalAchievementTrendResponse> {
@@ -85,10 +96,13 @@ export async function getGoalAchievementTrend(
   );
 }
 
-// ---------------------------------------------------------------------------
-// Today activities
-// ---------------------------------------------------------------------------
-
+/**
+ * Get today activities.
+ * GET /api/v1/user/activities/today
+ * @returns TodayActivitiesResponse
+ */
 export async function getTodayActivities(): Promise<TodayActivitiesResponse> {
   return api.get<TodayActivitiesResponse>(`${ACTIVITIES_BASE}/today`);
-}
+};
+
+export default getTodayActivities;

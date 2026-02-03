@@ -1,19 +1,3 @@
-/** Query key for goal (single resource); used in hooks. */
-export const GOAL_QUERY_KEY = ["user", "goals"] as const;
-
-/** Analytics query keys (for invalidation / parallel fetch). */
-export const ANALYTICS_QUERY_KEYS = {
-  caloriesProgress: (range: string, unit: string) =>
-    ["user", "analytics", "calories-progress", range, unit] as const,
-  waterProgress: (range: string, unit: string) =>
-    ["user", "analytics", "water-progress", range, unit] as const,
-  goalAchievementTrend: (range: string, unit: string) =>
-    ["user", "analytics", "goal-achievement-trend", range, unit] as const,
-};
-
-/** Today activities query key */
-export const TODAY_ACTIVITIES_QUERY_KEY = ["user", "activities", "today"] as const;
-
 /** Range for 1 week (analytics API) */
 export const ANALYTICS_RANGE_7D = "7d";
 
@@ -22,9 +6,6 @@ export const ANALYTICS_RANGE_1M = "1m";
 
 /** Unit day for analytics */
 export const ANALYTICS_UNIT_DAY = "day";
-
-/** Last 3 months (~90 days) for Achievements & Streaks */
-export const DAYS_3_MONTHS = 90;
 
 /** Last 1 week for Calorie/Water progress charts */
 export const DAYS_1_WEEK = 7;

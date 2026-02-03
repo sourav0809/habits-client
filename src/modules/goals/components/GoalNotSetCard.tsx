@@ -7,10 +7,7 @@ export interface GoalNotSetCardProps {
   setGoalButton: React.ReactNode;
 }
 
-export function GoalNotSetCard({
-  onSetGoal,
-  setGoalButton,
-}: GoalNotSetCardProps) {
+const GoalNotSetCard = ({ onSetGoal, setGoalButton }: GoalNotSetCardProps) => {
   return (
     <Card className="border-amber-200 bg-amber-50/50 dark:border-amber-900/50 dark:bg-amber-950/20">
       <CardHeader>
@@ -32,4 +29,6 @@ export function GoalNotSetCard({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default GoalNotSetCard;

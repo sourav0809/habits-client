@@ -4,7 +4,7 @@ import type {
   AnalyticsQueryParams,
   CaloriesProgressResponse,
 } from "../types";
-import { ANALYTICS_QUERY_KEYS } from "../constants";
+import { QUERY_KEYS } from "@/lib/query/keys";
 
 const DEFAULT_PARAMS: AnalyticsQueryParams = {
   range: "7d",
@@ -19,7 +19,7 @@ export function useCaloriesProgress(
   const unit = params?.unit ?? DEFAULT_PARAMS.unit ?? "day";
 
   return useQuery<CaloriesProgressResponse>({
-    queryKey: ANALYTICS_QUERY_KEYS.caloriesProgress(range, unit),
+    queryKey: QUERY_KEYS.goals.analytics.caloriesProgress(range, unit),
     queryFn: () => getCaloriesProgress({ range, unit }),
     enabled: options?.enabled ?? true,
   });

@@ -12,13 +12,12 @@ import {
   Line,
 } from "recharts";
 import { formatChartDay, formatChartLabel } from "@/utils/time.utils";
-import { formatMl, getDummyWeekData } from "../../utils";
+import { formatMl } from "../../utils";
 import type { Goal } from "../../types";
 import type {
   CaloriesProgressResponse,
   WaterProgressResponse,
 } from "../../types";
-import type { DailyGoalDummy } from "../../utils";
 
 const CHART_TITLE_KCAL = "Calorie Progress (1 week)";
 const CHART_TITLE_WATER = "Water Progress (1 week)";
@@ -28,18 +27,18 @@ type ChartType = "kcal" | "water";
 export interface GoalProgressChartProps {
   type: ChartType;
   goal: Goal;
-  /** From analytics API; when provided, used instead of dummy data */
+  /** From analytics API */
   caloriesProgress?: CaloriesProgressResponse | null;
-  /** From analytics API; when provided, used instead of dummy data */
+  /** From analytics API */
   waterProgress?: WaterProgressResponse | null;
 }
 
-export function GoalProgressChart({
+const GoalProgressChart = ({
   type,
   goal,
   caloriesProgress,
   waterProgress,
-}: GoalProgressChartProps) {
+}: GoalProgressChartProps) => {
   const chartData = useMemo(() => {
     if (type === "kcal" && caloriesProgress?.dataPoints?.length) {
       return caloriesProgress.dataPoints.map((d) => ({
@@ -57,23 +56,8 @@ export function GoalProgressChart({
         goal: goal.targetWaterMl,
       }));
     }
-    const data = getDummyWeekData({
-      dailyKcal: goal.targetCalories,
-      dailyWater: goal.targetWaterMl,
-    });
-    return data.map((d: DailyGoalDummy) => ({
-      label: formatChartDay(d.dateObj),
-      fullDate: formatChartLabel(d.dateObj),
-      actual: type === "kcal" ? d.kcalActual : d.waterActual,
-      goal: type === "kcal" ? d.kcalGoal : d.waterGoal,
-    }));
-  }, [
-    type,
-    goal.targetCalories,
-    goal.targetWaterMl,
-    caloriesProgress?.dataPoints,
-    waterProgress?.dataPoints,
-  ]);
+    return [];
+  }, [type, goal, caloriesProgress, waterProgress]);
 
   const colors = {
     kcal: { primary: "#3b82f6" },
@@ -168,4 +152,6 @@ export function GoalProgressChart({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default GoalProgressChart;
