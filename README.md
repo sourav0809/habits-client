@@ -6,10 +6,11 @@ A full-stack habits and wellness tracker that helps you log water intake, track 
 
 ## 1. Deployed Links
 
-|              | URL                                       |
-| ------------ | ----------------------------------------- |
-| **Frontend** | https://habits.itssourav.online |
-| **Backend**  | https://api-habit.itssourav.online/api    |
+|              | URL                                                                                              |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| **Frontend** | https://habits.itssourav.online                                                                  |
+| **Backend**  | https://api-habit.itssourav.online/api                                                           |
+| **Demo**     | [Watch demo](https://drive.google.com/file/d/1BjDh4y4BlDRMaq9ne2pgAlpMsM2pfWYQ/view?usp=sharing) |
 
 ### GitHub Repositories
 
