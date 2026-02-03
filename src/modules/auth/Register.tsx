@@ -7,6 +7,7 @@ import { AuthDivider } from "./components/AuthDivider";
 import { PageLoader } from "@/components/PageLoader";
 import { useMe } from "./hooks";
 import { HabitTrackerLogo } from "@/components/sidebar/HabitTrackerLogo";
+import { GoogleAuthButton } from "./components/GoogleAuthButton";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -47,6 +48,20 @@ const Register = () => {
             <AuthDivider className="py-2" />
 
             <RegisterForm />
+
+            {/* Google Sign-In */}
+            <div className="relative py-4">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-border" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  or
+                </span>
+              </div>
+            </div>
+
+            <GoogleAuthButton />
           </div>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
@@ -65,3 +80,4 @@ const Register = () => {
 };
 
 export default Register;
+

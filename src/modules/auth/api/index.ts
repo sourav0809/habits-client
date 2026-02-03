@@ -1,5 +1,6 @@
 import { api } from "@/lib/api/client";
 import type {
+  GoogleLoginInput,
   LoginInput,
   LoginResponse,
   MeResponse,
@@ -24,6 +25,15 @@ export async function register(
  */
 export async function logIn(input: LoginInput): Promise<LoginResponse> {
   return await api.post<LoginResponse>("v1/auth/login", input);
+}
+
+/**
+ * Log in a user with Google
+ * @param input - The Google login input containing the ID token
+ * @returns The login response
+ */
+export async function googleLogin(input: GoogleLoginInput): Promise<LoginResponse> {
+  return await api.post<LoginResponse>("v1/auth/google", input);
 }
 
 /**

@@ -2,12 +2,14 @@ import Joi from 'joi';
 
 const envSchema = Joi.object({
   VITE_API_ROOT: Joi.string().uri().required(),
-  VITE_ENVIRONMENT: Joi.string().valid('development', 'staging', 'production').optional()
+  VITE_ENVIRONMENT: Joi.string().valid('development', 'staging', 'production').optional(),
+  VITE_GOOGLE_CLIENT_ID: Joi.string().required()
 }).unknown();
 
 const envVars = {
   VITE_API_ROOT: import.meta.env.VITE_API_ROOT,
-  VITE_ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT
+  VITE_ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT,
+  VITE_GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
 };
 
 // Validate the environment variables against the schema
@@ -21,5 +23,8 @@ export const envConfig = {
   api: {
     url: validatedEnv.VITE_API_ROOT
   },
-  environment: validatedEnv.VITE_ENVIRONMENT
+  environment: validatedEnv.VITE_ENVIRONMENT,
+  googleAuth: {
+    clientId: validatedEnv.VITE_GOOGLE_CLIENT_ID,
+  },
 };
