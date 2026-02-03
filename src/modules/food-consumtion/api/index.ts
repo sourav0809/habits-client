@@ -2,6 +2,8 @@ import { api } from "@/lib/api/client";
 import type {
   AddFoodConsumptionBody,
   AddFoodConsumptionResponse,
+  CaloriesOverTimeQuery,
+  CaloriesOverTimeResponse,
   DeleteFoodConsumptionResponse,
   GetFoodConsumptionsQuery,
   GetFoodConsumptionsResponse,
@@ -10,14 +12,30 @@ import type {
   UpdateFoodConsumptionResponse,
 } from "../types";
 
+const FOOD_BASE = "v1/user/food/consumption";
+const ANALYTICS_BASE = "v1/user/analytics";
+
 /**
- * Get all food consumptions (date range)
+ * Get food consumptions (date range, paginated)
  * GET /api/v1/user/food/consumption
  */
 export async function getFoodConsumptions(
   params?: GetFoodConsumptionsQuery
 ): Promise<GetFoodConsumptionsResponse> {
-  return api.get<GetFoodConsumptionsResponse>('v1/user/food/consumption', params);
+  return api.get<GetFoodConsumptionsResponse>(FOOD_BASE, params);
+}
+
+/**
+ * Get calories over time (stats + chart data)
+ * GET /api/v1/user/analytics/calories-over-time
+ */
+export async function getCaloriesOverTime(
+  params?: CaloriesOverTimeQuery
+): Promise<CaloriesOverTimeResponse> {
+  return api.get<CaloriesOverTimeResponse>(
+    `${ANALYTICS_BASE}/calories-over-time`,
+    params
+  );
 }
 
 /**
@@ -27,7 +45,7 @@ export async function getFoodConsumptions(
 export async function getFoodConsumption(
   id: string
 ): Promise<GetFoodConsumptionResponse> {
-  return api.get<GetFoodConsumptionResponse>(`v1/user/food/consumption/${id}`);
+  return api.get<GetFoodConsumptionResponse>(`${FOOD_BASE}/${id}`);
 }
 
 /**
@@ -38,7 +56,7 @@ export async function addFoodConsumption(
   body: AddFoodConsumptionBody
 ): Promise<AddFoodConsumptionResponse> {
   return api.post<AddFoodConsumptionResponse, AddFoodConsumptionBody>(
-    'v1/user/food/consumption',
+    FOOD_BASE,
     body
   );
 }
@@ -52,7 +70,7 @@ export async function updateFoodConsumption(
   body: UpdateFoodConsumptionBody
 ): Promise<UpdateFoodConsumptionResponse> {
   return api.patch<UpdateFoodConsumptionResponse, UpdateFoodConsumptionBody>(
-    `v1/user/food/consumption/${id}`,
+    `${FOOD_BASE}/${id}`,
     body
   );
 }
@@ -64,7 +82,5 @@ export async function updateFoodConsumption(
 export async function deleteFoodConsumption(
   id: string
 ): Promise<DeleteFoodConsumptionResponse> {
-  return api.delete<DeleteFoodConsumptionResponse>(
-    `v1/user/food/consumption/${id}`
-  );
+  return api.delete<DeleteFoodConsumptionResponse>(`${FOOD_BASE}/${id}`);
 }

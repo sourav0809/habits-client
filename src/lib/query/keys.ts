@@ -13,8 +13,14 @@ export const QUERY_KEYS = {
     list: ["food", "list"] as const,
   },
   foodConsumption: {
-    list: (startDate: string, endDate: string) =>
-      ["food", "consumption", startDate, endDate] as const,
+    list: (
+      startDate: string,
+      endDate: string,
+      page: number,
+      limit: number
+    ) => ["food", "consumption", startDate, endDate, page, limit] as const,
+    caloriesOverTime: (startDate: string, endDate: string) =>
+      ["food", "caloriesOverTime", startDate, endDate] as const,
     detail: (id: string) => ["food", "consumption", "detail", id] as const,
   },
 };

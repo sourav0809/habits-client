@@ -32,9 +32,7 @@ export function useAddFoodConsumption(options?: {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.food.list });
       queryClient.invalidateQueries({
         predicate: (query) =>
-          Array.isArray(query.queryKey) &&
-          query.queryKey[0] === "food" &&
-          query.queryKey[1] === "consumption",
+          Array.isArray(query.queryKey) && query.queryKey[0] === "food",
       });
       toast.success("Food consumption added successfully");
       options?.onSuccess?.(_data);

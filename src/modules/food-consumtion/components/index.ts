@@ -3,6 +3,7 @@ export { StatCard } from "./StatCard";
 export { DateRangeSection } from "./DateRangeSection";
 export { AddConsumptionDialog } from "./AddConsumptionDialog";
 export { ConsumptionTable } from "./ConsumptionTable";
+export { ConsumptionTablePagination } from "./ConsumptionTablePagination";
 export { EditConsumptionDialog } from "./EditConsumptionDialog";
 export { DeleteConsumptionConfirmDialog } from "./DeleteConsumptionConfirmDialog";
 export { CaloriesChart } from "./CaloriesChart";

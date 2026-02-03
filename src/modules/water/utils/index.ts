@@ -8,6 +8,9 @@ export {
   getDatePartFromDateTime,
   getWaterStats,
   getWaterChartData,
+  getNowDateTimeLocal,
+  isoToDateTimeLocal,
+  dateTimeLocalToISO,
 } from "./water.utils";
 export type {
   WaterStats,

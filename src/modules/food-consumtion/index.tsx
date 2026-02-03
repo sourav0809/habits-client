@@ -1,25 +1,20 @@
-import { useMemo, useState } from "react";
+import { useState, useCallback } from "react";
 import type { DateRange } from "react-day-picker";
 import { Flame, UtensilsCrossed, TrendingUp, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useFoodConsumptions } from "./hooks";
+import { useFoodConsumptionPageData } from "./hooks";
 import {
   FoodConsumptionHeader,
   StatCard,
   DateRangeSection,
   AddConsumptionDialog,
   ConsumptionTable,
+  ConsumptionTablePagination,
   CaloriesChart,
   FoodConsumptionPageLoader,
 } from "./components";
-import {
-  getTodayISO,
-  toDate,
-  toISO,
-  getConsumptionStats,
-  getConsumptionChartData,
-  formatDateLabel,
-} from "./utils";
+import { getTodayISO, toDate, toISO } from "./utils";
+import { FOOD_CONSUMPTIONS_PAGE_LIMIT } from "./constants";
 
 export default function FoodConsumptionModule() {
   const today = getTodayISO();
@@ -31,31 +26,29 @@ export default function FoodConsumptionModule() {
   }));
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [page, setPage] = useState(1);
 
   const dateFrom = dateRange?.from ? toISO(dateRange.from) : today;
   const dateTo = dateRange?.to ? toISO(dateRange.to) : dateFrom;
 
-  const { data, isPending, isError, error } = useFoodConsumptions({
-    startDate: dateFrom,
-    endDate: dateTo,
-  });
+  const handleDateRangeChange = useCallback((range: DateRange | undefined) => {
+    setDateRange(range);
+    setPage(1);
+  }, []);
 
-  const consumptions = useMemo(() => data?.consumptions ?? [], [data]);
-
-  const stats = useMemo(
-    () => getConsumptionStats(consumptions),
-    [consumptions]
-  );
-
-  const chartData = useMemo(
-    () =>
-      getConsumptionChartData(
-        consumptions,
-        dateFrom,
-        dateTo,
-        formatDateLabel
-      ),
-    [consumptions, dateFrom, dateTo]
+  const {
+    consumptions,
+    pagination,
+    stats,
+    chartData,
+    isPending,
+    isError,
+    error,
+  } = useFoodConsumptionPageData(
+    dateFrom,
+    dateTo,
+    page,
+    FOOD_CONSUMPTIONS_PAGE_LIMIT
   );
 
   if (isPending) {
@@ -103,7 +96,7 @@ export default function FoodConsumptionModule() {
 
       <DateRangeSection
         dateRange={dateRange}
-        onDateRangeChange={setDateRange}
+        onDateRangeChange={handleDateRangeChange}
         calendarOpen={calendarOpen}
         onCalendarOpenChange={setCalendarOpen}
         addButton={
@@ -124,7 +117,14 @@ export default function FoodConsumptionModule() {
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Food intake
         </h2>
-        <ConsumptionTable consumptions={consumptions} />
+        <ConsumptionTablePagination
+          pagination={pagination}
+          onPageChange={setPage}
+          disabled={isPending}
+        />
+        <div className="mt-4">
+          <ConsumptionTable consumptions={consumptions} />
+        </div>
       </section>
 
       <CaloriesChart data={chartData} />

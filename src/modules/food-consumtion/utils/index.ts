@@ -16,6 +16,8 @@ export {
   getConsumptionStats,
   getConsumptionFoodName,
   getConsumptionChartData,
+  formatPeriodLabel,
+  mapCaloriesOverTimeToChartData,
 } from "./consumption.utils";
 export type {
   ConsumptionStats,

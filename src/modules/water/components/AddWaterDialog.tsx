@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Loader2, Plus, Droplets } from "lucide-react";
+import { CalendarIcon, Loader2, Plus, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,12 +12,23 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { validateSchema } from "@/lib/schema";
 import { getApiErrorMessage } from "@/utils";
+import {
+  getCurrentDateAsDate,
+  getCurrentTimeString,
+  formatTableDate,
+} from "@/utils/time.utils";
 import { useAddWater } from "../hooks";
 import { addWaterInputSchema } from "../schema";
 import type { AddWaterInput } from "../types";
-import { formatMl } from "../utils";
+import { formatMl, toISO, dateTimeLocalToISO } from "../utils";
 import { QUICK_AMOUNTS } from "../constants";
 import { cn } from "@/lib/utils";
 
@@ -36,6 +47,9 @@ export function AddWaterDialog({
 }: AddWaterDialogProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [amount, setAmount] = useState<string>("250");
+  const [date, setDate] = useState<Date>(() => getCurrentDateAsDate());
+  const [time, setTime] = useState<string>(() => getCurrentTimeString());
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
 
   const isControlled = controlledOnOpenChange != null;
@@ -46,6 +60,8 @@ export function AddWaterDialog({
     onSuccess: () => {
       setOpen(false);
       setAmount("250");
+      setDate(getCurrentDateAsDate());
+      setTime(getCurrentTimeString());
       setErrors({});
     },
   });
@@ -58,8 +74,10 @@ export function AddWaterDialog({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const numAmount = Number(amount);
+    const dateAndTime = dateTimeLocalToISO(`${toISO(date)}T${time}`);
     const result = validateSchema(addWaterInputSchema, {
       amount: numAmount,
+      dateAndTime,
     });
     if (!result.success) {
       setErrors(result.fieldErrors as FieldErrors);
@@ -131,6 +149,46 @@ export function AddWaterDialog({
             </div>
             {errors.amount ? (
               <p className="text-sm text-destructive">{errors.amount}</p>
+            ) : null}
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Date & time</Label>
+            <div className="flex gap-2">
+              <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className={cn("flex-1 justify-start font-normal text-left")}
+                  >
+                    <CalendarIcon className="mr-2 size-4 shrink-0" />
+                    {formatTableDate(toISO(date))}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={(d) => {
+                      if (d) {
+                        setDate(d);
+                        setDatePickerOpen(false);
+                      }
+                    }}
+                    defaultMonth={date}
+                  />
+                </PopoverContent>
+              </Popover>
+              <Input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                className="w-[120px] shrink-0"
+              />
+            </div>
+            {errors.dateAndTime ? (
+              <p className="text-sm text-destructive">{errors.dateAndTime}</p>
             ) : null}
           </div>
 

@@ -31,11 +31,24 @@ export function CurrentGoalsCard({
   const waterMet =
     goal.targetWaterMl > 0 && todayWaterActual >= goal.targetWaterMl;
 
+  const TRACK_FILL = "hsl(var(--muted))";
+  const FULL_CIRCLE_END_ANGLE = -270;
+
   const kcalData = [
-    { name: "Calories", value: kcalPercentage, fill: "#3b82f6" },
+    { name: "_track", value: 100, fill: TRACK_FILL },
+    {
+      name: "Calories",
+      value: kcalPercentage >= 100 ? 100.1 : kcalPercentage,
+      fill: "#3b82f6",
+    },
   ];
   const waterData = [
-    { name: "Water", value: waterPercentage, fill: "#06b6d4" },
+    { name: "_track", value: 100, fill: TRACK_FILL },
+    {
+      name: "Water",
+      value: waterPercentage >= 100 ? 100.1 : waterPercentage,
+      fill: "#06b6d4",
+    },
   ];
 
   return (
@@ -59,12 +72,12 @@ export function CurrentGoalsCard({
                   barSize={12}
                   data={kcalData}
                   startAngle={90}
-                  endAngle={-270 * (kcalPercentage / 100) + 90}
+                  endAngle={FULL_CIRCLE_END_ANGLE}
                 >
                   <RadialBar
-                    background={{ fill: "hsl(var(--muted))" }}
                     dataKey="value"
-                    cornerRadius={10}
+                    cornerRadius={6}
+                    background={false}
                   />
                 </RadialBarChart>
               </ResponsiveContainer>
@@ -107,12 +120,12 @@ export function CurrentGoalsCard({
                   barSize={12}
                   data={waterData}
                   startAngle={90}
-                  endAngle={-270 * (waterPercentage / 100) + 90}
+                  endAngle={FULL_CIRCLE_END_ANGLE}
                 >
                   <RadialBar
-                    background={{ fill: "hsl(var(--muted))" }}
                     dataKey="value"
-                    cornerRadius={10}
+                    cornerRadius={6}
+                    background={false}
                   />
                 </RadialBarChart>
               </ResponsiveContainer>

@@ -1,30 +1,22 @@
-import { useMemo, useState } from "react";
+import { useState, useCallback } from "react";
 import type { DateRange } from "react-day-picker";
 import { Droplets, GlassWater, Plus, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useWaterLogs } from "./hooks";
+import { useWaterPageData } from "./hooks";
 import {
   WaterHeader,
   StatCard,
   WaterDateRangeSection,
   AddWaterDialog,
   WaterLogTable,
-  GoalProgressCard,
+  WaterLogsPagination,
+  WaterGoalCardSection,
   DailyIntakeChart,
   WaterInsightsChart,
   WaterPageLoader,
 } from "./components";
-import {
-  getTodayISO,
-  toDate,
-  toISO,
-  getWaterStats,
-  getWaterChartData,
-  formatDateLabel,
-  formatMl,
-} from "./utils";
-import { getDatePartFromDateTime } from "./utils";
-import { DAILY_GOAL_ML } from "./constants";
+import { getTodayISO, toDate, toISO, formatMl } from "./utils";
+import { WATER_LOGS_PAGE_LIMIT } from "./constants";
 
 export default function WaterModule() {
   const today = getTodayISO();
@@ -36,31 +28,28 @@ export default function WaterModule() {
   }));
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [page, setPage] = useState(1);
 
   const dateFrom = dateRange?.from ? toISO(dateRange.from) : today;
   const dateTo = dateRange?.to ? toISO(dateRange.to) : dateFrom;
 
-  const { data, isPending, isError, error } = useWaterLogs({
-    startDate: dateFrom,
-    endDate: dateTo,
-  });
+  const handleDateRangeChange = useCallback((range: DateRange | undefined) => {
+    setDateRange(range);
+    setPage(1);
+  }, []);
 
-  const logs = useMemo(() => data?.logs ?? [], [data]);
-  const stats = useMemo(() => getWaterStats(logs), [logs]);
-
-  const todayLogs = useMemo(() => {
-    return logs.filter((l) => getDatePartFromDateTime(l.dateAndTime) === today);
-  }, [logs, today]);
-  const todayTotalMl = useMemo(
-    () => todayLogs.reduce((s, l) => s + l.amountMl, 0),
-    [todayLogs]
-  );
-
-  const chartData = useMemo(
-    () =>
-      getWaterChartData(logs, dateFrom, dateTo, DAILY_GOAL_ML, formatDateLabel),
-    [logs, dateFrom, dateTo]
-  );
+  const {
+    logs,
+    stats,
+    chartData,
+    pagination,
+    goal,
+    todayWaterMl,
+    goalCardLoading,
+    isPending,
+    isError,
+    error,
+  } = useWaterPageData(dateFrom, dateTo, page, WATER_LOGS_PAGE_LIMIT);
 
   if (isPending) {
     return <WaterPageLoader />;
@@ -83,7 +72,7 @@ export default function WaterModule() {
 
       <WaterDateRangeSection
         dateRange={dateRange}
-        onDateRangeChange={setDateRange}
+        onDateRangeChange={handleDateRangeChange}
         calendarOpen={calendarOpen}
         onCalendarOpenChange={setCalendarOpen}
         addButton={
@@ -125,8 +114,12 @@ export default function WaterModule() {
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <GoalProgressCard currentMl={todayTotalMl} goalMl={DAILY_GOAL_ML} />
-        <WaterInsightsChart />
+        <WaterGoalCardSection
+          goal={goal}
+          todayWaterMl={todayWaterMl}
+          goalCardLoading={goalCardLoading}
+        />
+        <WaterInsightsChart startDate={dateFrom} endDate={dateTo} />
       </div>
 
       <section>
@@ -137,7 +130,14 @@ export default function WaterModule() {
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Water intake
         </h2>
-        <WaterLogTable logs={logs} />
+        <WaterLogsPagination
+          pagination={pagination}
+          onPageChange={setPage}
+          disabled={isPending}
+        />
+        <div className="mt-4">
+          <WaterLogTable logs={logs} />
+        </div>
       </section>
     </div>
   );

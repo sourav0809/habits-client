@@ -1,4 +1,6 @@
+import moment from "moment-timezone";
 import {
+  DEFAULT_TIMEZONE,
   formatDateLabel as formatDateLabelTz,
   formatDateTime as formatDateTimeTz,
   getDatePartFromDateTime as getDatePartFromDateTimeTz,
@@ -8,6 +10,24 @@ import {
   toISO as toISOTz,
 } from "@/utils/time.utils";
 import type { WaterLog } from "../types";
+
+/** Format for HTML datetime-local input (YYYY-MM-DDTHH:mm). */
+const DATETIME_LOCAL_FORMAT = "YYYY-MM-DDTHH:mm";
+
+/** Current date and time as datetime-local value in project timezone. */
+export function getNowDateTimeLocal(): string {
+  return moment().tz(DEFAULT_TIMEZONE).format(DATETIME_LOCAL_FORMAT);
+}
+
+/** Convert API ISO date-time to datetime-local input value. */
+export function isoToDateTimeLocal(isoDateTime: string): string {
+  return moment(isoDateTime).tz(DEFAULT_TIMEZONE).format(DATETIME_LOCAL_FORMAT);
+}
+
+/** Convert datetime-local value to ISO string for API. */
+export function dateTimeLocalToISO(local: string): string {
+  return new Date(local).toISOString();
+}
 
 /** Format ml for display (e.g. 1500 → "1.5L", 250 → "250ml") */
 export function formatMl(ml: number): string {

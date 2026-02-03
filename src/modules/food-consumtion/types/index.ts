@@ -29,11 +29,44 @@ export interface FoodConsumption {
 export interface GetFoodConsumptionsQuery {
   startDate?: string;
   endDate?: string;
+  page?: number;
+  limit?: number;
+}
+
+/** GET list – pagination meta from API */
+export interface FoodConsumptionsPagination {
+  page: number;
+  limit: number;
+  totalEntries: number;
+  totalPages: number;
 }
 
 /** GET list – extracted data shape (after api client unwraps data) */
 export interface GetFoodConsumptionsResponse {
   consumptions: FoodConsumption[];
+  pagination: FoodConsumptionsPagination;
+}
+
+/** GET calories over time – query (use startDate + endDate only) */
+export interface CaloriesOverTimeQuery {
+  startDate?: string;
+  endDate?: string;
+  range?: string;
+  unit?: "day" | "month" | "year";
+}
+
+/** One data point for calories-over-time chart */
+export interface CaloriesOverTimePoint {
+  period: string;
+  calories: number;
+}
+
+/** GET calories over time – response shape */
+export interface CaloriesOverTimeResponse {
+  caloriesOverTime: CaloriesOverTimePoint[];
+  calories: number;
+  mealsLogged: number;
+  avgCaloriesPerMeal: number;
 }
 
 /** GET one – extracted data shape */

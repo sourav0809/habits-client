@@ -77,9 +77,10 @@ export function DailyIntakeChart({ data }: DailyIntakeChartProps) {
                   formatMl(value ?? 0),
                   name === "amount" ? "Intake" : "Goal",
                 ]}
-                labelFormatter={(_: unknown, payload: readonly { payload?: { fullDate?: string } }[]) =>
-                  payload?.[0]?.payload?.fullDate ?? ""
-                }
+                labelFormatter={(
+                  _: unknown,
+                  payload: readonly { payload?: { fullDate?: string } }[]
+                ) => payload?.[0]?.payload?.fullDate ?? ""}
               />
               <Bar
                 dataKey="amount"
@@ -100,7 +101,7 @@ export function DailyIntakeChart({ data }: DailyIntakeChartProps) {
         </div>
         <div className="mt-2 flex items-center justify-center gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <div className="size-3 rounded bg-gradient-to-b from-blue-500 to-blue-600" />
+            <div className="size-3 rounded bg-linear-to-b from-blue-500 to-blue-600" />
             <span className="text-muted-foreground">Water Intake</span>
           </div>
           <div className="flex items-center gap-2">

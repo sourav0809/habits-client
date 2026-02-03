@@ -1,5 +1,30 @@
+import moment from "moment-timezone";
 import { getDaysInRange } from "@/utils/time.utils";
+import { formatDateLabel } from "./date.utils";
 import type { FoodConsumption } from "../types";
+import type { CaloriesOverTimePoint } from "../types";
+
+/** Format API period string for chart axis (day: "Mon, Jan 1", month: "Feb 2025", year: "2025") */
+export function formatPeriodLabel(period: string): string {
+  if (!period) return period;
+  if (period.length === 10) return formatDateLabel(period);
+  if (period.length === 7) {
+    const m = moment(`${period}-01`);
+    return m.isValid() ? m.format("MMM YYYY") : period;
+  }
+  return period;
+}
+
+/** Map calories-over-time API response to chart data (handles long ranges / gaps) */
+export function mapCaloriesOverTimeToChartData(
+  caloriesOverTime: CaloriesOverTimePoint[]
+): ChartDataPoint[] {
+  return caloriesOverTime.map(({ period, calories }) => ({
+    date: period,
+    label: formatPeriodLabel(period),
+    kcal: calories,
+  }));
+}
 
 export interface ConsumptionStats {
   totalKcal: number;

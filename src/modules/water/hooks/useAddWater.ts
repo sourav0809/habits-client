@@ -7,7 +7,7 @@ import { toast } from "sonner";
 function toAddWaterBody(input: AddWaterInput): AddWaterBody {
   return {
     amount: Math.round(input.amount),
-    dateAndTime: input.dateAndTime ?? undefined,
+    dateAndTime: input.dateAndTime,
   };
 }
 

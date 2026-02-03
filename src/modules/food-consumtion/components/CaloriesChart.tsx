@@ -17,6 +17,10 @@ export interface CaloriesChartProps {
 export function CaloriesChart({ data }: CaloriesChartProps) {
   if (data.length === 0) return null;
 
+  /** For long date ranges, show fewer X labels to avoid overlap and layout issues */
+  const xAxisInterval =
+    data.length > 14 ? Math.max(0, Math.ceil((data.length - 1) / 7)) : 0;
+
   return (
     <Card>
       <CardHeader>
@@ -42,6 +46,7 @@ export function CaloriesChart({ data }: CaloriesChartProps) {
                 tickLine={false}
                 axisLine={false}
                 className="text-muted-foreground"
+                interval={xAxisInterval}
               />
               <YAxis
                 dataKey="kcal"
