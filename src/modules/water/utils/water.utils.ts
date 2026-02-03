@@ -11,6 +11,17 @@ import {
 } from "@/utils/time.utils";
 import type { WaterLog } from "../types";
 
+/** Ensure log has `id` and `amountMl`; API may use _id, consumptionId, or amount. */
+export function normalizeWaterLog(
+  raw: WaterLog | Record<string, unknown>
+): WaterLog {
+  const r = raw as Record<string, unknown>;
+  const id = (r.id ?? r._id ?? r.consumptionId ?? "") as string;
+  const amountMl =
+    (r.amountMl as number) ?? (r.amount as number) ?? 0;
+  return { ...raw, id, amountMl } as WaterLog;
+}
+
 /** Format for HTML datetime-local input (YYYY-MM-DDTHH:mm). */
 const DATETIME_LOCAL_FORMAT = "YYYY-MM-DDTHH:mm";
 

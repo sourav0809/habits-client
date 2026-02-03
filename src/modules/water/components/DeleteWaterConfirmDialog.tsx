@@ -15,7 +15,8 @@ export interface DeleteWaterConfirmDialogProps {
   log: WaterLog | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onConfirm: () => void;
+  /** Called with the log id to delete */
+  onConfirm: (id: string) => void;
   isDeleting: boolean;
 }
 
@@ -50,7 +51,7 @@ const DeleteWaterConfirmDialog = ({
           <Button
             type="button"
             variant="destructive"
-            onClick={onConfirm}
+            onClick={() => log?.id && onConfirm(log.id)}
             disabled={isDeleting}
           >
             {isDeleting ? (

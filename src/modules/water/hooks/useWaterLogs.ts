@@ -4,7 +4,7 @@ import type {
   GetWaterLogsQuery,
   GetWaterLogsResponse,
 } from "../types";
-import { getTodayISO } from "../utils";
+import { getTodayISO, normalizeWaterLog } from "../utils";
 import {
   WATER_QUERY_KEYS,
   WATER_LOGS_PAGE_LIMIT,
@@ -26,8 +26,18 @@ export function useWaterLogs(params?: UseWaterLogsParams) {
 
   return useQuery<GetWaterLogsResponse>({
     queryKey: WATER_QUERY_KEYS.list(startDate, endDate, page, limit),
-    queryFn: () =>
-      getWaterLogs({ startDate, endDate, page, limit } as GetWaterLogsQuery),
+    queryFn: async () => {
+      const data = await getWaterLogs({
+        startDate,
+        endDate,
+        page,
+        limit,
+      } as GetWaterLogsQuery);
+      return {
+        ...data,
+        logs: data.logs.map(normalizeWaterLog),
+      };
+    },
   });
 }
 
@@ -35,12 +45,17 @@ export function useWaterLogs(params?: UseWaterLogsParams) {
 export function useWaterLogsForChart(dateFrom: string, dateTo: string) {
   return useQuery<GetWaterLogsResponse>({
     queryKey: WATER_QUERY_KEYS.listForChart(dateFrom, dateTo),
-    queryFn: () =>
-      getWaterLogs({
+    queryFn: async () => {
+      const data = await getWaterLogs({
         startDate: dateFrom,
         endDate: dateTo,
         page: 1,
         limit: WATER_CHART_LOGS_LIMIT,
-      } as GetWaterLogsQuery),
+      } as GetWaterLogsQuery);
+      return {
+        ...data,
+        logs: data.logs.map(normalizeWaterLog),
+      };
+    },
   });
 }

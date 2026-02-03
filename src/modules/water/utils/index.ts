@@ -1,6 +1,7 @@
 export {
   formatMl,
   getTodayISO,
+  normalizeWaterLog,
   toDate,
   toISO,
   formatDateLabel,

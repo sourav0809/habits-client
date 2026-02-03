@@ -29,23 +29,20 @@ export function RegisterForm() {
       : null;
 
   const onSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault();
-      const result = validateSchema(registerInputSchema, {
-        name,
-        email,
-        password,
-      });
-      if (!result.success) {
-        setErrors(result.fieldErrors as FieldErrors);
-        return;
-      }
-      setErrors({});
-      await register.mutateAsync(result.data);
-      navigate(NAVIGATION_PATHS.DASHBOARD, { replace: true });
-    } catch (error) {
-      toast.error(getApiErrorMessage(error));
+    e.preventDefault();
+    const result = validateSchema(registerInputSchema, {
+      name,
+      email,
+      password,
+    });
+    if (!result.success) {
+      setErrors(result.fieldErrors as FieldErrors);
+      return;
     }
+    setErrors({});
+    await register.mutateAsync(result.data);
+    navigate(NAVIGATION_PATHS.DASHBOARD, { replace: true });
+    toast.success("Account created successfully");
   };
 
   return (

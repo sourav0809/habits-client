@@ -51,8 +51,8 @@ const WaterLogTable = ({ logs }: WaterLogTableProps) => {
     setDeleteDialogOpen(true);
   };
 
-  const handleDeleteConfirm = () => {
-    if (selectedLog) deleteWater.mutate(selectedLog.id);
+  const handleDeleteConfirm = (id: string) => {
+    if (id) deleteWater.mutate(id);
   };
 
   if (logs.length === 0) {
@@ -120,6 +120,7 @@ const WaterLogTable = ({ logs }: WaterLogTableProps) => {
                     >
                       <PopoverTrigger asChild>
                         <Button
+                          type="button"
                           variant="ghost"
                           size="icon"
                           className="size-8 shrink-0 text-gray-700 hover:text-gray-900 dark:text-muted-foreground dark:hover:text-foreground"
@@ -128,9 +129,14 @@ const WaterLogTable = ({ logs }: WaterLogTableProps) => {
                           <MoreVertical className="size-4" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent align="end" className="w-40 p-1">
+                      <PopoverContent
+                        align="end"
+                        side="left"
+                        className="z-100 w-40 p-1"
+                      >
                         <div className="flex flex-col gap-0.5">
                           <Button
+                            type="button"
                             variant="ghost"
                             size="sm"
                             className="justify-start gap-2 font-normal"
@@ -140,6 +146,7 @@ const WaterLogTable = ({ logs }: WaterLogTableProps) => {
                             Edit
                           </Button>
                           <Button
+                            type="button"
                             variant="ghost"
                             size="sm"
                             className="justify-start gap-2 font-normal text-destructive hover:bg-destructive/10 hover:text-destructive"
@@ -162,7 +169,10 @@ const WaterLogTable = ({ logs }: WaterLogTableProps) => {
       <EditWaterDialog
         log={selectedLog}
         open={editDialogOpen}
-        onOpenChange={setEditDialogOpen}
+        onOpenChange={(open) => {
+          setEditDialogOpen(open);
+          if (!open) setSelectedLog(null);
+        }}
       />
       <DeleteWaterConfirmDialog
         log={selectedLog}
