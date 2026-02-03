@@ -8,7 +8,7 @@ A full-stack habits and wellness tracker that helps you log water intake, track 
 
 |              | URL                                       |
 | ------------ | ----------------------------------------- |
-| **Frontend** | https://habits.itssourav.online/dashboard |
+| **Frontend** | https://habits.itssourav.online |
 | **Backend**  | https://api-habit.itssourav.online/api    |
 
 ### GitHub Repositories
