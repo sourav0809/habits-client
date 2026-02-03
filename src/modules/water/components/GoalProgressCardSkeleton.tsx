@@ -11,7 +11,7 @@ function Skeleton({ className }: { className?: string }) {
 }
 
 const GoalProgressCardSkeleton = () => (
-  <Card className="relative overflow-hidden">
+  <Card className="relative overflow-hidden border-border/80 bg-card shadow-sm">
     <CardHeader className="pb-2">
       <Skeleton className="h-5 w-40" />
     </CardHeader>

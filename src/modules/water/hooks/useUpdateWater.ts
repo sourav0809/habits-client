@@ -32,6 +32,11 @@ export function useUpdateWater(options?: {
           Array.isArray(query.queryKey) &&
           query.queryKey[0] === "water",
       });
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          Array.isArray(query.queryKey) &&
+          query.queryKey[0] === "dashboard",
+      });
       toast.success("Water intake updated successfully");
       options?.onSuccess?.(data);
     },

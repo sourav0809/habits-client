@@ -17,6 +17,10 @@ export function useDeleteFoodConsumption(options?: {
         predicate: (query) =>
           Array.isArray(query.queryKey) && query.queryKey[0] === "food",
       });
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          Array.isArray(query.queryKey) && query.queryKey[0] === "dashboard",
+      });
       toast.success("Food consumption deleted successfully");
       options?.onSuccess?.(_data);
     },

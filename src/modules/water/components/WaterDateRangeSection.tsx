@@ -50,7 +50,13 @@ const WaterDateRangeSection = ({
               {rangeLabel}
             </Button>
           </PopoverTrigger>
-          <PopoverContent align="end" className="w-auto p-0">
+          <PopoverContent 
+            align="start" 
+            side="bottom"
+            sideOffset={8}
+            className="z-[100] w-auto p-0"
+            collisionPadding={16}
+          >
             <Calendar
               mode="range"
               defaultMonth={dateRange?.from ?? undefined}

@@ -18,22 +18,18 @@ const WaterInsightsChart = ({
 
   if (isPending) {
     return (
-      <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <Card className="border-border/80 bg-gradient-to-br from-slate-50 to-slate-100 shadow-sm dark:from-slate-900 dark:to-slate-800">
         <CardHeader>
-          <CardTitle className="text-base font-medium">
-            Hydration Insights
-          </CardTitle>
-          <p className="text-xs text-muted-foreground">
-            Loading insights for selected date range…
-          </p>
+          <div className="h-5 w-36 animate-pulse rounded bg-muted" />
+          <div className="mt-1 h-3 w-48 animate-pulse rounded bg-muted" />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-16 animate-pulse rounded-lg bg-muted/50"
-              />
+              <div key={i} className="flex flex-col items-center space-y-2">
+                <div className="h-8 w-16 animate-pulse rounded-lg bg-muted" />
+                <div className="h-3 w-12 animate-pulse rounded bg-muted" />
+              </div>
             ))}
           </div>
         </CardContent>
@@ -64,7 +60,7 @@ const WaterInsightsChart = ({
   };
 
   return (
-    <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <Card className="border-border/80 bg-gradient-to-br from-slate-50 to-slate-100 shadow-sm dark:from-slate-900 dark:to-slate-800">
       <CardHeader>
         <CardTitle className="text-base font-medium">
           Hydration Insights

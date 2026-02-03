@@ -1,6 +1,5 @@
 import { Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { RadialBarChart, RadialBar, ResponsiveContainer } from "recharts";
 import { formatMl } from "../utils";
 import { DAILY_GOAL_ML } from "../constants";
 
@@ -15,12 +14,16 @@ const GoalProgressCard = ({
 }: GoalProgressCardProps) => {
   const percentage = Math.min(Math.round((currentMl / goalMl) * 100), 100);
   const remaining = Math.max(goalMl - currentMl, 0);
-  const progressData = [
-    { name: "Progress", value: percentage, fill: "#3b82f6" },
-  ];
+
+  // SVG circle calculations
+  const size = 160;
+  const strokeWidth = 12;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card className="relative overflow-hidden border-border/80 bg-card shadow-sm">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-base font-medium">
           <Target className="size-4 text-blue-600" />
@@ -29,25 +32,38 @@ const GoalProgressCard = ({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          {/* Custom SVG Progress Ring */}
           <div className="relative h-[160px] w-[160px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadialBarChart
-                cx="50%"
-                cy="50%"
-                innerRadius="70%"
-                outerRadius="100%"
-                barSize={12}
-                data={progressData}
-                startAngle={90}
-                endAngle={-270 * (percentage / 100) + 90}
-              >
-                <RadialBar
-                  background={{ fill: "hsl(var(--muted))" }}
-                  dataKey="value"
-                  cornerRadius={10}
-                />
-              </RadialBarChart>
-            </ResponsiveContainer>
+            <svg
+              width={size}
+              height={size}
+              viewBox={`0 0 ${size} ${size}`}
+              className="rotate-[-90deg]"
+            >
+              {/* Background track */}
+              <circle
+                cx={size / 2}
+                cy={size / 2}
+                r={radius}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={strokeWidth}
+                className="text-muted"
+              />
+              {/* Progress arc */}
+              <circle
+                cx={size / 2}
+                cy={size / 2}
+                r={radius}
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth={strokeWidth}
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffset}
+                className="transition-all duration-500 ease-out"
+              />
+            </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-2xl font-bold text-foreground">
                 {percentage}%
@@ -55,6 +71,8 @@ const GoalProgressCard = ({
               <span className="text-sm text-muted-foreground">of goal</span>
             </div>
           </div>
+
+          {/* Stats */}
           <div className="flex flex-col gap-3 text-center sm:text-right">
             <div>
               <p className="text-sm text-muted-foreground">Consumed</p>

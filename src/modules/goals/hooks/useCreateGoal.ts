@@ -15,9 +15,14 @@ export function useCreateGoal(options?: {
   return useMutation<CreateGoalResponse, Error, CreateGoalBody>({
     mutationFn: createGoal,
     onSuccess: (data) => {
-      queryClient.setQueryData(QUERY_KEYS.goals.goal, { goal: data.goal });
+      const payload = { goal: data.goal };
+      queryClient.setQueryData(QUERY_KEYS.goals.goal, payload);
+      queryClient.setQueryData(QUERY_KEYS.dashboard.goal, payload);
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.goals.todayActivities,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.dashboard.todayActivities,
       });
       queryClient.invalidateQueries({
         predicate: (query) =>
