@@ -61,31 +61,36 @@ function CircularProgress({
   );
 }
 
-export function GoalProgressCard({
+const GoalProgressCard = ({
   caloriesConsumed,
   caloriesGoal,
   waterConsumedMl,
   waterGoalMl,
-}: GoalProgressCardProps) {
-  const caloriesPercent = calculateProgressCapped(caloriesConsumed, caloriesGoal);
+}: GoalProgressCardProps) => {
+  const caloriesPercent = calculateProgressCapped(
+    caloriesConsumed,
+    caloriesGoal
+  );
   const waterPercent = calculateProgressCapped(waterConsumedMl, waterGoalMl);
 
   return (
     <Card>
       <CardHeader className="pb-4">
-        <CardTitle className="text-base font-medium">Today's Goal Progress</CardTitle>
+        <CardTitle className="text-base font-medium">
+          Today's Goal Progress
+        </CardTitle>
       </CardHeader>
       <CardContent className="pb-8">
         <div className="grid grid-cols-2 gap-8">
           {/* Calories Progress */}
           <div className="flex flex-col items-center">
             <div className="relative flex items-center justify-center">
-              <CircularProgress 
-                percent={caloriesPercent} 
-                color="#3b82f6" 
+              <CircularProgress
+                percent={caloriesPercent}
+                color="#3b82f6"
                 trackColor="#3b82f6"
-                size={120} 
-                strokeWidth={10} 
+                size={120}
+                strokeWidth={10}
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center rotate-0">
                 <Flame className="size-6 text-blue-500" />
@@ -105,12 +110,12 @@ export function GoalProgressCard({
           {/* Water Progress */}
           <div className="flex flex-col items-center">
             <div className="relative flex items-center justify-center">
-              <CircularProgress 
-                percent={waterPercent} 
-                color="#06b6d4" 
+              <CircularProgress
+                percent={waterPercent}
+                color="#06b6d4"
                 trackColor="#06b6d4"
-                size={120} 
-                strokeWidth={10} 
+                size={120}
+                strokeWidth={10}
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center rotate-0">
                 <Droplets className="size-6 text-cyan-500" />
@@ -130,4 +135,6 @@ export function GoalProgressCard({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default GoalProgressCard;

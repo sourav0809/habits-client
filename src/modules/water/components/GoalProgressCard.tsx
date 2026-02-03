@@ -9,10 +9,10 @@ export interface GoalProgressCardProps {
   goalMl?: number;
 }
 
-export function GoalProgressCard({
+const GoalProgressCard = ({
   currentMl,
   goalMl = DAILY_GOAL_ML,
-}: GoalProgressCardProps) {
+}: GoalProgressCardProps) => {
   const percentage = Math.min(Math.round((currentMl / goalMl) * 100), 100);
   const remaining = Math.max(goalMl - currentMl, 0);
   const progressData = [
@@ -79,4 +79,6 @@ export function GoalProgressCard({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default GoalProgressCard;

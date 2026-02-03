@@ -30,32 +30,34 @@ const quickActions = [
   },
 ];
 
-export function QuickActionsCard() {
-  return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base font-medium">Quick Actions</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-2">
-        {quickActions.map((action) => (
-          <Link
-            key={action.label}
-            to={action.href}
-            className="group flex items-center gap-3 rounded-lg border border-border bg-muted/30 p-3 transition-all hover:bg-muted/70"
+const QuickActionsCard = () => (
+  <Card>
+    <CardHeader className="pb-3">
+      <CardTitle className="text-base font-medium">Quick Actions</CardTitle>
+    </CardHeader>
+    <CardContent className="grid gap-2">
+      {quickActions.map((action) => (
+        <Link
+          key={action.label}
+          to={action.href}
+          className="group flex items-center gap-3 rounded-lg border border-border bg-muted/30 p-3 transition-all hover:bg-muted/70"
+        >
+          <div
+            className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${action.iconBg}`}
           >
-            <div
-              className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${action.iconBg}`}
-            >
-              <action.icon className={`size-5 ${action.iconColor}`} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-foreground">{action.label}</p>
-              <p className="text-sm text-muted-foreground">{action.description}</p>
-            </div>
-            <ChevronRight className="size-5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-          </Link>
-        ))}
-      </CardContent>
-    </Card>
-  );
-}
+            <action.icon className={`size-5 ${action.iconColor}`} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-medium text-foreground">{action.label}</p>
+            <p className="text-sm text-muted-foreground">
+              {action.description}
+            </p>
+          </div>
+          <ChevronRight className="size-5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+        </Link>
+      ))}
+    </CardContent>
+  </Card>
+);
+
+export default QuickActionsCard;

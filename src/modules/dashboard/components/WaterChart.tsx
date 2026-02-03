@@ -32,10 +32,10 @@ function getTickInterval(dataLength: number): number {
   return Math.floor(dataLength / 6) - 1; // ~6 labels for very long ranges
 }
 
-export function WaterChart({ data, waterGoalMl }: WaterChartProps) {
+const WaterChart = ({ data, waterGoalMl }: WaterChartProps) => {
   const chartData = useMemo(() => {
     if (!data?.waterOverTime?.length) return [];
-    
+
     return data.waterOverTime.map((point) => ({
       label: formatChartDay(point.period),
       fullDate: formatChartLabel(point.period),
@@ -94,7 +94,10 @@ export function WaterChart({ data, waterGoalMl }: WaterChartProps) {
                       border: "1px solid hsl(var(--border))",
                       background: "hsl(var(--card))",
                     }}
-                    formatter={(value: number | undefined) => [formatMl(value ?? 0), "Water"]}
+                    formatter={(value: number | undefined) => [
+                      formatMl(value ?? 0),
+                      "Water",
+                    ]}
                     labelFormatter={(
                       _: unknown,
                       payload: readonly { payload?: { fullDate?: string } }[]
@@ -134,4 +137,6 @@ export function WaterChart({ data, waterGoalMl }: WaterChartProps) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default WaterChart;

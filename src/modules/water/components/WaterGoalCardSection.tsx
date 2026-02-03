@@ -1,7 +1,7 @@
 import type { Goal } from "@/modules/goals/types";
-import { GoalProgressCard } from "./GoalProgressCard";
-import { GoalProgressCardSkeleton } from "./GoalProgressCardSkeleton";
-import { SetGoalCard } from "./SetGoalCard";
+import GoalProgressCard from "./GoalProgressCard";
+import GoalProgressCardSkeleton from "./GoalProgressCardSkeleton";
+import SetGoalCard from "./SetGoalCard";
 
 export interface WaterGoalCardSectionProps {
   goal: Goal | null;
@@ -9,14 +9,16 @@ export interface WaterGoalCardSectionProps {
   goalCardLoading: boolean;
 }
 
-export function WaterGoalCardSection({
+const WaterGoalCardSection = ({
   goal,
   todayWaterMl,
   goalCardLoading,
-}: WaterGoalCardSectionProps) {
+}: WaterGoalCardSectionProps) => {
   if (goalCardLoading) return <GoalProgressCardSkeleton />;
   if (goal == null) return <SetGoalCard />;
   return (
     <GoalProgressCard currentMl={todayWaterMl} goalMl={goal.targetWaterMl} />
   );
-}
+};
+
+export default WaterGoalCardSection;

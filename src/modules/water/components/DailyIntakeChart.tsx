@@ -17,7 +17,7 @@ export interface DailyIntakeChartProps {
   data: WaterChartDataPoint[];
 }
 
-export function DailyIntakeChart({ data }: DailyIntakeChartProps) {
+const DailyIntakeChart = ({ data }: DailyIntakeChartProps) => {
   if (data.length === 0) return null;
 
   const chartData = data.map((d) => ({
@@ -112,4 +112,6 @@ export function DailyIntakeChart({ data }: DailyIntakeChartProps) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default DailyIntakeChart;

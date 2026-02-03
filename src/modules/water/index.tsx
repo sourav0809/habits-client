@@ -3,22 +3,20 @@ import type { DateRange } from "react-day-picker";
 import { Droplets, GlassWater, Plus, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useWaterPageData } from "./hooks";
-import {
-  WaterHeader,
-  StatCard,
-  WaterDateRangeSection,
-  AddWaterDialog,
-  WaterLogTable,
-  WaterLogsPagination,
-  WaterGoalCardSection,
-  DailyIntakeChart,
-  WaterInsightsChart,
-  WaterPageLoader,
-} from "./components";
+import WaterHeader from "./components/WaterHeader";
+import StatCard from "./components/StatCard";
+import WaterDateRangeSection from "./components/WaterDateRangeSection";
+import AddWaterDialog from "./components/AddWaterDialog";
+import WaterLogTable from "./components/WaterLogTable";
+import WaterLogsPagination from "./components/WaterLogsPagination";
+import WaterGoalCardSection from "./components/WaterGoalCardSection";
+import DailyIntakeChart from "./components/DailyIntakeChart";
+import WaterInsightsChart from "./components/WaterInsightsChart";
+import WaterPageLoader from "./components/WaterPageLoader";
 import { getTodayISO, toDate, toISO, formatMl } from "./utils";
 import { WATER_LOGS_PAGE_LIMIT } from "./constants";
 
-export default function WaterModule() {
+const WaterModule = () => {
   const today = getTodayISO();
   const todayDate = toDate(today);
 
@@ -141,4 +139,6 @@ export default function WaterModule() {
       </section>
     </div>
   );
-}
+};
+
+export default WaterModule;

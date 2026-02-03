@@ -2,22 +2,20 @@ import { useState, useCallback } from "react";
 import type { DateRange } from "react-day-picker";
 import { Flame, Droplets, UtensilsCrossed, GlassWater } from "lucide-react";
 import { useDashboardPageData } from "./hooks";
-import {
-  DashboardHeader,
-  DateRangeSection,
-  DashboardPageLoader,
-  StatCard,
-  GoalNudgeBanner,
-  QuickActionsCard,
-  GoalProgressCard,
-  CaloriesChart,
-  WaterChart,
-  WaterInsightsCard,
-} from "./components";
+import DashboardHeader from "./components/DashboardHeader";
+import DateRangeSection from "./components/DateRangeSection";
+import DashboardPageLoader from "./components/DashboardPageLoader";
+import StatCard from "./components/StatCard";
+import GoalNudgeBanner from "./components/GoalNudgeBanner";
+import QuickActionsCard from "./components/QuickActionsCard";
+import GoalProgressCard from "./components/GoalProgressCard";
+import CaloriesChart from "./components/CaloriesChart";
+import WaterChart from "./components/WaterChart";
+import WaterInsightsCard from "./components/InsightsCard";
 import { formatMl, formatKcal } from "./utils";
 import { getTodayISO, toDate, toISO } from "@/utils/time.utils";
 
-export default function DashboardModule() {
+const DashboardModule = () => {
   const today = getTodayISO();
   const todayDate = toDate(today);
 
@@ -136,10 +134,7 @@ export default function DashboardModule() {
             data={caloriesData}
             caloriesGoal={goal!.targetCalories}
           />
-          <WaterChart
-            data={waterData}
-            waterGoalMl={goal!.targetWaterMl}
-          />
+          <WaterChart data={waterData} waterGoalMl={goal!.targetWaterMl} />
         </div>
       )}
 
@@ -149,4 +144,6 @@ export default function DashboardModule() {
       )}
     </div>
   );
-}
+};
+
+export default DashboardModule;

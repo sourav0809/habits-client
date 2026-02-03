@@ -7,7 +7,7 @@ export interface ProfileAvatarProps {
   className?: string;
 }
 
-export function ProfileAvatar({ name, imageUrl, className }: ProfileAvatarProps) {
+const ProfileAvatar = ({ name, imageUrl, className }: ProfileAvatarProps) => {
   const initials = name
     .split(" ")
     .map((n) => n[0])
@@ -28,4 +28,6 @@ export function ProfileAvatar({ name, imageUrl, className }: ProfileAvatarProps)
       </AvatarFallback>
     </Avatar>
   );
-}
+};
+
+export default ProfileAvatar;

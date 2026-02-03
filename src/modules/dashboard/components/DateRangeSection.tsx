@@ -2,7 +2,11 @@ import { useState, useCallback } from "react";
 import type { DateRange } from "react-day-picker";
 import { Calendar, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { formatDateLabel, getCurrentDateAsDate } from "@/utils/time.utils";
 
@@ -19,10 +23,10 @@ const QUICK_PRESETS = [
   { label: "Last 1 year", days: 365 },
 ];
 
-export function DateRangeSection({
+const DateRangeSection = ({
   dateRange,
   onDateRangeChange,
-}: DateRangeSectionProps) {
+}: DateRangeSectionProps) => {
   const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleSelect = useCallback(
@@ -52,7 +56,9 @@ export function DateRangeSection({
     if (!dateRange.to || dateRange.from.getTime() === dateRange.to.getTime()) {
       return formatDateLabel(dateRange.from.toISOString());
     }
-    return `${formatDateLabel(dateRange.from.toISOString())} - ${formatDateLabel(dateRange.to.toISOString())}`;
+    return `${formatDateLabel(
+      dateRange.from.toISOString()
+    )} - ${formatDateLabel(dateRange.to.toISOString())}`;
   };
 
   return (
@@ -67,7 +73,12 @@ export function DateRangeSection({
           <ChevronDown className="size-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start" side="bottom" sideOffset={8}>
+      <PopoverContent
+        className="w-auto p-0"
+        align="start"
+        side="bottom"
+        sideOffset={8}
+      >
         <div className="flex flex-col sm:flex-row">
           {/* Quick presets sidebar */}
           <div className="flex flex-row flex-wrap gap-1 border-b p-3 sm:w-40 sm:flex-col sm:border-b-0 sm:border-r">
@@ -86,7 +97,7 @@ export function DateRangeSection({
               </Button>
             ))}
           </div>
-          
+
           {/* Calendar */}
           <div className="p-3">
             <CalendarComponent
@@ -97,7 +108,7 @@ export function DateRangeSection({
               disabled={{ after: getCurrentDateAsDate() }}
               initialFocus
             />
-            
+
             {/* Selected range display */}
             {dateRange?.from && (
               <div className="mt-3 flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
@@ -112,4 +123,6 @@ export function DateRangeSection({
       </PopoverContent>
     </Popover>
   );
-}
+};
+
+export default DateRangeSection;

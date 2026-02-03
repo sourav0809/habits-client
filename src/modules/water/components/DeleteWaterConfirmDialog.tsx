@@ -19,13 +19,13 @@ export interface DeleteWaterConfirmDialogProps {
   isDeleting: boolean;
 }
 
-export function DeleteWaterConfirmDialog({
+const DeleteWaterConfirmDialog = ({
   log,
   open,
   onOpenChange,
   onConfirm,
   isDeleting,
-}: DeleteWaterConfirmDialogProps) {
+}: DeleteWaterConfirmDialogProps) => {
   if (!log) return null;
 
   return (
@@ -66,4 +66,6 @@ export function DeleteWaterConfirmDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default DeleteWaterConfirmDialog;

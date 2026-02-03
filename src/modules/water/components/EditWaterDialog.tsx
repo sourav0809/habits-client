@@ -38,11 +38,7 @@ export interface EditWaterDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function EditWaterDialog({
-  log,
-  open,
-  onOpenChange,
-}: EditWaterDialogProps) {
+const EditWaterDialog = ({ log, open, onOpenChange }: EditWaterDialogProps) => {
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<Date>(() => new Date());
   const [time, setTime] = useState<string>("00:00");
@@ -184,4 +180,6 @@ export function EditWaterDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default EditWaterDialog;

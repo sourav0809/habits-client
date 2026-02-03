@@ -18,13 +18,13 @@ export interface WaterDateRangeSectionProps {
   addButton: React.ReactNode;
 }
 
-export function WaterDateRangeSection({
+const WaterDateRangeSection = ({
   dateRange,
   onDateRangeChange,
   calendarOpen,
   onCalendarOpenChange,
   addButton,
-}: WaterDateRangeSectionProps) {
+}: WaterDateRangeSectionProps) => {
   const rangeLabel =
     dateRange?.from && dateRange?.to
       ? dateRange.from.getTime() === dateRange.to.getTime()
@@ -65,4 +65,6 @@ export function WaterDateRangeSection({
       </div>
     </div>
   );
-}
+};
+
+export default WaterDateRangeSection;

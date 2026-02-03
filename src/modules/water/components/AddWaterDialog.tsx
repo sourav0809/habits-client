@@ -40,11 +40,11 @@ export interface AddWaterDialogProps {
   trigger?: React.ReactNode;
 }
 
-export function AddWaterDialog({
+const AddWaterDialog = ({
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange,
   trigger,
-}: AddWaterDialogProps) {
+}: AddWaterDialogProps) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const [amount, setAmount] = useState<string>("250");
   const [date, setDate] = useState<Date>(() => getCurrentDateAsDate());
@@ -221,4 +221,6 @@ export function AddWaterDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default AddWaterDialog;

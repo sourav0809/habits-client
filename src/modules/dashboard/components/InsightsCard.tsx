@@ -8,12 +8,14 @@ interface WaterInsightsCardProps {
   isLoading?: boolean;
 }
 
-export function WaterInsightsCard({ insights, isLoading }: WaterInsightsCardProps) {
+const WaterInsightsCard = ({ insights, isLoading }: WaterInsightsCardProps) => {
   if (isLoading) {
     return (
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-base font-medium">Water Insights</CardTitle>
+          <CardTitle className="text-base font-medium">
+            Water Insights
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 gap-4">
@@ -73,7 +75,7 @@ export function WaterInsightsCard({ insights, isLoading }: WaterInsightsCardProp
             </div>
           ))}
         </div>
-        
+
         {insights?.dailyAvgMl != null && insights.dailyAvgMl > 0 && (
           <div className="mt-4 rounded-lg bg-muted/50 p-3 text-center">
             <p className="text-sm text-muted-foreground">
@@ -87,4 +89,6 @@ export function WaterInsightsCard({ insights, isLoading }: WaterInsightsCardProp
       </CardContent>
     </Card>
   );
-}
+};
+
+export default WaterInsightsCard;

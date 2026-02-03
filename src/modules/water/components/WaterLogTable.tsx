@@ -18,14 +18,14 @@ import {
 import type { WaterLog } from "../types";
 import { formatMl, formatDateTime } from "../utils";
 import { useDeleteWater } from "../hooks";
-import { EditWaterDialog } from "./EditWaterDialog";
-import { DeleteWaterConfirmDialog } from "./DeleteWaterConfirmDialog";
+import EditWaterDialog from "./EditWaterDialog";
+import DeleteWaterConfirmDialog from "./DeleteWaterConfirmDialog";
 
 export interface WaterLogTableProps {
   logs: WaterLog[];
 }
 
-export function WaterLogTable({ logs }: WaterLogTableProps) {
+const WaterLogTable = ({ logs }: WaterLogTableProps) => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedLog, setSelectedLog] = useState<WaterLog | null>(null);
@@ -173,4 +173,6 @@ export function WaterLogTable({ logs }: WaterLogTableProps) {
       />
     </>
   );
-}
+};
+
+export default WaterLogTable;

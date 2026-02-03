@@ -1,14 +1,12 @@
 import { User, Mail } from "lucide-react";
 import { useMe } from "@/modules/auth/hooks";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ProfileHeader,
-  ProfileAvatar,
-  ProfileCard,
-  ProfilePageLoader,
-} from "./components";
+import ProfileHeader from "./components/ProfileHeader";
+import ProfileAvatar from "./components/ProfileAvatar";
+import ProfileCard from "./components/ProfileCard";
+import ProfilePageLoader from "./components/ProfilePageLoader";
 
-export default function ProfileModule() {
+const ProfileModule = () => {
   const { data, isPending, isError, error } = useMe();
   const user = data?.user;
 
@@ -64,4 +62,6 @@ export default function ProfileModule() {
       </div>
     </div>
   );
-}
+};
+
+export default ProfileModule;

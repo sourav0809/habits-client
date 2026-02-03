@@ -34,11 +34,11 @@ function getPageNumbers(
   return pages;
 }
 
-export function WaterLogsPagination({
+const WaterLogsPagination = ({
   pagination,
   onPageChange,
   disabled = false,
-}: WaterLogsPaginationProps) {
+}: WaterLogsPaginationProps) => {
   if (!pagination || pagination.totalPages <= 0) return null;
 
   const { page, totalPages, totalEntries, limit } = pagination;
@@ -129,4 +129,6 @@ export function WaterLogsPagination({
       </div>
     </div>
   );
-}
+};
+
+export default WaterLogsPagination;

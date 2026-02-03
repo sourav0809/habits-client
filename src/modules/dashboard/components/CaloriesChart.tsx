@@ -31,10 +31,10 @@ function getTickInterval(dataLength: number): number {
   return Math.floor(dataLength / 6) - 1; // ~6 labels for very long ranges
 }
 
-export function CaloriesChart({ data, caloriesGoal }: CaloriesChartProps) {
+const CaloriesChart = ({ data, caloriesGoal }: CaloriesChartProps) => {
   const chartData = useMemo(() => {
     if (!data?.caloriesOverTime?.length) return [];
-    
+
     return data.caloriesOverTime.map((point) => ({
       label: formatChartDay(point.period),
       fullDate: formatChartLabel(point.period),
@@ -92,7 +92,10 @@ export function CaloriesChart({ data, caloriesGoal }: CaloriesChartProps) {
                       border: "1px solid hsl(var(--border))",
                       background: "hsl(var(--card))",
                     }}
-                    formatter={(value: number | undefined) => [`${value ?? 0} kcal`, "Calories"]}
+                    formatter={(value: number | undefined) => [
+                      `${value ?? 0} kcal`,
+                      "Calories",
+                    ]}
                     labelFormatter={(
                       _: unknown,
                       payload: readonly { payload?: { fullDate?: string } }[]
@@ -132,4 +135,6 @@ export function CaloriesChart({ data, caloriesGoal }: CaloriesChartProps) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default CaloriesChart;

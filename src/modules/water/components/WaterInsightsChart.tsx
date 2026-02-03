@@ -7,10 +7,10 @@ export interface WaterInsightsChartProps {
   endDate: string;
 }
 
-export function WaterInsightsChart({
+const WaterInsightsChart = ({
   startDate,
   endDate,
-}: WaterInsightsChartProps) {
+}: WaterInsightsChartProps) => {
   const { data, isPending, isError, error } = useHydrationInsights(
     startDate,
     endDate
@@ -103,4 +103,6 @@ export function WaterInsightsChart({
       </CardContent>
     </Card>
   );
-}
+};
+
+export default WaterInsightsChart;
