@@ -1,4 +1,4 @@
-# Habits - Your Habits Tracker
+# Habits – Your Daily Wellness Tracker
 
 A full-stack habits and wellness tracker that helps you log water intake, track food consumption, set goals, and monitor your progress over time. Built with a modern React frontend and Node.js backend, with authentication, dashboards, and insights.
 
