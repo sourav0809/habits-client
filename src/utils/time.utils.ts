@@ -455,7 +455,7 @@ export const getCurrentTimeString = (
     timezone
   );
 
-/** Build full ISO 8601 string from date (date-only) and time "HH:mm" in project timezone. */
+/** Build timezone-aware UTC ISO string from date (date-only) and time "HH:mm" in project timezone. */
 export const buildDateAndTimeISO = (
   date: DateType,
   time: string,
@@ -463,7 +463,7 @@ export const buildDateAndTimeISO = (
 ): string => {
   const [hour = 0, minute = 0] = time.split(":").map(Number);
   const m = moment(date).tz(timezone).hour(hour).minute(minute).second(0).millisecond(0);
-  return m.format(timeFormats.DATETIME_24_WITH_SECONDS);
+  return m.toISOString();
 };
 
 /** Get time string "HH:mm" from ISO date-time in project timezone. */
