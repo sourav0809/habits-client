@@ -9,7 +9,6 @@ import { PasswordInput } from "./PasswordInput";
 import { useRegister } from "../hooks";
 import { registerInputSchema } from "../schema";
 import type { RegisterInput } from "../types";
-import { getApiErrorMessage } from "@/utils";
 import { NAVIGATION_PATHS } from "@/constants";
 import { toast } from "sonner";
 
@@ -23,10 +22,6 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
 
-  const serverError =
-    register.error && getApiErrorMessage(register.error)
-      ? getApiErrorMessage(register.error)
-      : null;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,11 +94,6 @@ export function RegisterForm() {
           </p>
         )}
       </div>
-      {serverError && (
-        <p className="text-sm text-destructive" role="alert">
-          {serverError}
-        </p>
-      )}
       <Button
         type="submit"
         className="w-full bg-blue-600 hover:bg-blue-700 h-11 text-base font-medium"

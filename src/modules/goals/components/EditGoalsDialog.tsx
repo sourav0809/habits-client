@@ -64,9 +64,6 @@ function EditGoalsDialogForm({
 
   const mutation = isCreate ? createGoalMutation : updateGoalMutation;
   const isPending = mutation.isPending;
-  const serverError = mutation.error
-    ? getApiErrorMessage(mutation.error)
-    : null;
 
   const handleSubmit = () => {
     const targetCalories =
@@ -95,11 +92,6 @@ function EditGoalsDialogForm({
         </DialogDescription>
       </DialogHeader>
       <div className="space-y-6 py-4">
-        {serverError && (
-          <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-            {serverError}
-          </div>
-        )}
         <div className="space-y-3">
           <Label className="flex items-center gap-2 text-sm font-medium">
             <Flame className="size-4 text-blue-600" />

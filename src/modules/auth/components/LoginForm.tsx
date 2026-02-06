@@ -10,7 +10,6 @@ import { PasswordInput } from "./PasswordInput";
 import { useLogin } from "../hooks";
 import { loginInputSchema } from "../schema";
 import type { LoginInput } from "../types";
-import { getApiErrorMessage } from "@/utils";
 import { toast } from "sonner";
 
 type FieldErrors = Partial<Record<keyof LoginInput, string>>;
@@ -22,10 +21,6 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
 
-  const serverError =
-    login.error && getApiErrorMessage(login.error)
-      ? getApiErrorMessage(login.error)
-      : null;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,11 +71,6 @@ export function LoginForm() {
           </p>
         )}
       </div>
-      {serverError && (
-        <p className="text-sm text-destructive" role="alert">
-          {serverError}
-        </p>
-      )}
       <Button
         type="submit"
         className="w-full bg-blue-600 hover:bg-blue-700 h-11 text-base font-medium"

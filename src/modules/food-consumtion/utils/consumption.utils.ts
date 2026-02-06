@@ -1,8 +1,14 @@
 import moment from "moment-timezone";
 import { getDaysInRange } from "@/utils/time.utils";
-import { formatDateLabel } from "./date.utils";
+import { formatDateLabel, toISO } from "./date.utils";
 import type { FoodConsumption } from "../types";
 import type { CaloriesOverTimePoint } from "../types";
+import {
+  getCurrentDateAsDate,
+  getCurrentTimeString,
+  getTimeStringFromISO,
+  parseDateTimeToDate,
+} from "./date.utils";
 
 /** Format API period string for chart axis (day: "Mon, Jan 1", month: "Feb 2025", year: "2025") */
 export function formatPeriodLabel(period: string): string {
@@ -80,4 +86,72 @@ export function getConsumptionChartData(
       label: formatDateLabel(date),
       kcal,
     }));
+}
+
+/**
+ * Calculate pagination pages with ellipsis
+ */
+export function getPageNumbers(
+  currentPage: number,
+  totalPages: number
+): (number | "ellipsis")[] {
+  if (totalPages <= 0) return [];
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  const pages: (number | "ellipsis")[] = [1];
+  const windowStart = Math.max(2, currentPage - 1);
+  const windowEnd = Math.min(totalPages - 1, currentPage + 1);
+
+  if (windowStart > 2) pages.push("ellipsis");
+  for (let p = windowStart; p <= windowEnd; p++) {
+    if (p !== 1 && p !== totalPages) pages.push(p);
+  }
+  if (windowEnd < totalPages - 1) pages.push("ellipsis");
+  if (totalPages > 1) pages.push(totalPages);
+
+  return pages;
+}
+
+/**
+ * Format date range for display
+ */
+export function formatDateRangeLabel(
+  dateRange: { from?: Date; to?: Date } | undefined
+): string {
+  return dateRange?.from && dateRange?.to
+    ? dateRange.from.getTime() === dateRange.to.getTime()
+      ? formatDateLabel(toISO(dateRange.from))
+      : `${formatDateLabel(toISO(dateRange.from))} – ${formatDateLabel(
+          toISO(dateRange.to)
+        )}`
+    : "Pick dates";
+}
+
+/**
+ * Safely extract food ID from consumption (handles both populated object and IO format)
+ */
+export function getResolvedFoodId(c: FoodConsumption): string {
+  const u = c.userFoodId;
+  return typeof u === "object" && u !== null ? u.id : u ?? "";
+}
+
+/**
+ * Extract initial date/time for consumption editing
+ */
+export function getInitialDateAndTime(c: FoodConsumption): {
+  date: Date;
+  time: string;
+} {
+  const iso = c.dateAndTime ?? c.date ?? "";
+  if (!iso) {
+    return {
+      date: getCurrentDateAsDate(),
+      time: getCurrentTimeString(),
+    };
+  }
+  return {
+    date: parseDateTimeToDate(iso),
+    time: getTimeStringFromISO(iso),
+  };
 }

@@ -68,7 +68,7 @@ const AddConsumptionDialog = ({
   const { data: foodsData } = useMyFoods();
   const foods = foodsData?.foods ?? [];
 
-  const selectedFood = foods.find((f) => f.id === userFoodId) ?? null;
+  const selectedFood = foods.find((f: Food) => f.id === userFoodId) ?? null;
 
   const addConsumption = useAddFoodConsumption({
     onSuccess: () => {

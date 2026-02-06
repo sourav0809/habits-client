@@ -1,6 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { FoodConsumptionsPagination } from "../types";
+import { getPageNumbers } from "../utils";
 
 export interface ConsumptionTablePaginationProps {
   pagination: FoodConsumptionsPagination | null;
@@ -8,27 +9,7 @@ export interface ConsumptionTablePaginationProps {
   disabled?: boolean;
 }
 
-function getPageNumbers(
-  currentPage: number,
-  totalPages: number
-): (number | "ellipsis")[] {
-  if (totalPages <= 0) return [];
-  if (totalPages <= 5) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-  const pages: (number | "ellipsis")[] = [1];
-  const windowStart = Math.max(2, currentPage - 1);
-  const windowEnd = Math.min(totalPages - 1, currentPage + 1);
 
-  if (windowStart > 2) pages.push("ellipsis");
-  for (let p = windowStart; p <= windowEnd; p++) {
-    if (p !== 1 && p !== totalPages) pages.push(p);
-  }
-  if (windowEnd < totalPages - 1) pages.push("ellipsis");
-  if (totalPages > 1) pages.push(totalPages);
-
-  return pages;
-}
 
 const ConsumptionTablePagination = ({
   pagination,

@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { formatDateLabel, toISO } from "../utils";
+import { formatDateRangeLabel } from "../utils";
 
 export interface DateRangeSectionProps {
   dateRange: DateRange | undefined;
@@ -25,14 +25,7 @@ const DateRangeSection = ({
   onCalendarOpenChange,
   addButton,
 }: DateRangeSectionProps) => {
-  const rangeLabel =
-    dateRange?.from && dateRange?.to
-      ? dateRange.from.getTime() === dateRange.to.getTime()
-        ? formatDateLabel(toISO(dateRange.from))
-        : `${formatDateLabel(toISO(dateRange.from))} – ${formatDateLabel(
-            toISO(dateRange.to)
-          )}`
-      : "Pick dates";
+  const rangeLabel = formatDateRangeLabel(dateRange);
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

@@ -20,6 +20,7 @@ import { formatDateTime, getConsumptionFoodName } from "../utils";
 import { useDeleteFoodConsumption } from "../hooks";
 import EditConsumptionDialog from "./EditConsumptionDialog";
 import { DeleteConsumptionConfirmDialog } from "./DeleteConsumptionConfirmDialog";
+import { ConsumptionEmptyState } from "./ConsumptionEmptyState";
 
 export interface ConsumptionTableProps {
   consumptions: FoodConsumption[];
@@ -57,16 +58,7 @@ const ConsumptionTable = ({ consumptions }: ConsumptionTableProps) => {
   };
 
   if (consumptions.length === 0) {
-    return (
-      <Card className="border-dashed">
-        <CardContent className="flex flex-col items-center justify-center py-12 text-center">
-          <UtensilsCrossed className="mb-2 size-10 text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">
-            No meals in this date range. Add food above to get started.
-          </p>
-        </CardContent>
-      </Card>
-    );
+    return <ConsumptionEmptyState />;
   }
 
   return (

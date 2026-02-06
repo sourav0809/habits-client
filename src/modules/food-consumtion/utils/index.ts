@@ -18,6 +18,10 @@ export {
   getConsumptionChartData,
   formatPeriodLabel,
   mapCaloriesOverTimeToChartData,
+  getPageNumbers,
+  formatDateRangeLabel,
+  getResolvedFoodId,
+  getInitialDateAndTime,
 } from "./consumption.utils";
 export type {
   ConsumptionStats,

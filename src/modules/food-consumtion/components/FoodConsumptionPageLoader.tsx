@@ -19,7 +19,7 @@ const FoodConsumptionPageLoader = () => {
       </div>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[1, 2, 3].map((i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <Card key={i} className="overflow-hidden border-border/80">
             <CardHeader className="flex flex-row items-start justify-between gap-2 pb-1">
               <Skeleton className="h-4 w-20" />
@@ -43,7 +43,7 @@ const FoodConsumptionPageLoader = () => {
           <CardContent className="p-0">
             <div className="flex flex-col">
               <Skeleton className="h-12 w-full rounded-none" />
-              {[1, 2, 3, 4, 5].map((i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <Skeleton
                   key={i}
                   className="h-16 w-full rounded-none border-t border-gray-200 dark:border-border"
