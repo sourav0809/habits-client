@@ -21,7 +21,6 @@ import {
   DEFAULT_WATER_GOAL_ML,
 } from "../constants";
 import type { Goal } from "../types";
-import { getApiErrorMessage } from "@/utils";
 import { cn } from "@/lib/utils";
 
 export interface EditGoalsDialogProps {
