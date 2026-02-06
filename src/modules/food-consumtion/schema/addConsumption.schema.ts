@@ -6,5 +6,5 @@ export const addConsumptionInputSchema = z.object({
   quantity: z
     .number({ invalid_type_error: "Quantity is required" })
     .min(0, "Quantity must be 0 or more"),
-  dateAndTime: z.string().optional().nullable(),
+  dateAndTime: z.string().datetime()
 });
